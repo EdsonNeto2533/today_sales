@@ -11,6 +11,7 @@ import 'package:today_sale/sales_database.dart';
 final dependencies = GetIt.instance;
 
 void registerDepencies() {
+  dependencies.allowReassignment = true;
   _registerDatabaseDependencies();
   _registerRepositoryDependencies();
   _registerUseCaseDependencies();
@@ -26,8 +27,8 @@ void _registerCubitDependencies() {
 
 void _registerDatabaseDependencies() {
   //Add database to depence injection
-  dependencies.registerLazySingletonAsync<SalesDatabase>(
-    () async => await $FloorSalesDatabase
+  dependencies.registerSingletonAsync<SalesDatabase>(
+    () async => $FloorSalesDatabase
         .databaseBuilder(Constants().databaseReference)
         .build(),
   );
@@ -39,15 +40,15 @@ void _registerDatabaseDependencies() {
 }
 
 void _registerUseCaseDependencies() {
-  dependencies.registerFactory<IGetColaboratorsUseCase>(
-    () => GetColaboratorsUseCase(repository: dependencies.get()),
-  );
+  dependencies.registerSingletonWithDependencies<IGetColaboratorsUseCase>(
+      () => GetColaboratorsUseCase(repository: dependencies.get()),
+      dependsOn: [IDashboardRepository]);
 }
 
 void _registerRepositoryDependencies() {
-  dependencies.registerFactory<IDashboardRepository>(
-    () => DashboardRepository(
-      collaboratorDAO: dependencies.get(),
-    ),
-  );
+  dependencies.registerSingletonWithDependencies<IDashboardRepository>(
+      () => DashboardRepository(
+            collaboratorDAO: dependencies.get(),
+          ),
+      dependsOn: [SalesDatabase, CollaboratorDAO]);
 }
