@@ -5,10 +5,10 @@ import 'package:today_sale/commons/database/entitys/collaborator.dart';
 
 @dao
 abstract class CollaboratorDAO {
-  @Query("select * from Collaborator")
+  @Query("select * from collaborator_table")
   Future<List<Collaborator>> getCollaborators();
 
-  @Query("select * from Collaborator where id = :collaboratorId")
+  @Query("select * from collaborator_table where id = :collaboratorId")
   Future<Collaborator?> getCollaboratorById(int collaboratorId);
 
   @insert

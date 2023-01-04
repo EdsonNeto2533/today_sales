@@ -1,6 +1,6 @@
 import 'package:floor/floor.dart';
 
-@entity
+@Entity(tableName: "collaborator_table")
 class Collaborator {
   @primaryKey
   final int id;
