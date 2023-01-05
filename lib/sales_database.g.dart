@@ -85,7 +85,7 @@ class _$SalesDatabase extends SalesDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `Collaborator` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `collaborator_table` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT NOT NULL)');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -107,12 +107,12 @@ class _$CollaboratorDAO extends CollaboratorDAO {
   )   : _queryAdapter = QueryAdapter(database),
         _collaboratorInsertionAdapter = InsertionAdapter(
             database,
-            'Collaborator',
+            'collaborator_table',
             (Collaborator item) =>
                 <String, Object?>{'id': item.id, 'name': item.name}),
         _collaboratorDeletionAdapter = DeletionAdapter(
             database,
-            'Collaborator',
+            'collaborator_table',
             ['id'],
             (Collaborator item) =>
                 <String, Object?>{'id': item.id, 'name': item.name});
@@ -129,23 +129,23 @@ class _$CollaboratorDAO extends CollaboratorDAO {
 
   @override
   Future<List<Collaborator>> getCollaborators() async {
-    return _queryAdapter.queryList('select * from Collaborator',
+    return _queryAdapter.queryList('SELECT * FROM collaborator_table',
         mapper: (Map<String, Object?> row) =>
-            Collaborator(id: row['id'] as int, name: row['name'] as String));
+            Collaborator(id: row['id'] as int?, name: row['name'] as String));
   }
 
   @override
   Future<Collaborator?> getCollaboratorById(int collaboratorId) async {
-    return _queryAdapter.query('select * from Collaborator where id = ?1',
+    return _queryAdapter.query('SELECT * FROM collaborator_table WHERE id = ?1',
         mapper: (Map<String, Object?> row) =>
-            Collaborator(id: row['id'] as int, name: row['name'] as String),
+            Collaborator(id: row['id'] as int?, name: row['name'] as String),
         arguments: [collaboratorId]);
   }
 
   @override
   Future<void> insertCollaborator(Collaborator collaborator) async {
     await _collaboratorInsertionAdapter.insert(
-        collaborator, OnConflictStrategy.abort);
+        collaborator, OnConflictStrategy.replace);
   }
 
   @override

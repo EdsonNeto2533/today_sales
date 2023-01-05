@@ -9,6 +9,6 @@ class GetColaboratorsUseCase implements IGetColaboratorsUseCase {
 
   @override
   Future<List<Collaborator>> getCollaborators() {
-    return getCollaborators();
+    return repository.getCollaborators();
   }
 }

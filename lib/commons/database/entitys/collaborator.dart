@@ -1,10 +1,10 @@
 import 'package:floor/floor.dart';
 
-@Entity(tableName: "collaborator_table")
+@Entity(tableName: 'collaborator_table')
 class Collaborator {
-  @primaryKey
-  final int id;
+  @PrimaryKey(autoGenerate: true)
+  int? id;
   final String name;
 
-  Collaborator({required this.id, required this.name});
+  Collaborator({this.id, required this.name});
 }

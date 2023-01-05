@@ -5,22 +5,48 @@ import 'package:get_it/get_it.dart';
 import 'package:today_sale/commons/database/entitys/collaborator.dart';
 import 'package:today_sale/dashboard/presentation/cubit/dashboard_collaborators_cubit.dart';
 
-class DashboardScreen extends StatelessWidget {
+class DashboardScreen extends StatefulWidget {
   DashboardScreen({Key? key}) : super(key: key);
 
-  Future<List<Collaborator>> alo() async {
+  @override
+  State<DashboardScreen> createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
+  Widget _body = CircularProgressIndicator();
+  Future<void> _initData() async {
     await GetIt.I.allReady();
-    DashboardCollaboratorsCubit dashboardCubit = GetIt.I.get();
-    return dashboardCubit.getCollaborators();
+    dashboardCubit = GetIt.I.get();
+  }
+
+  void _addCollaborator() {
+    dashboardCubit?.addColaborator().then((value) {
+      _loadScreen();
+      setState(() {});
+    });
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  void initState() {
+    _loadDatabase();
+    super.initState();
+  }
+
+  DashboardCollaboratorsCubit? dashboardCubit;
+
+  void _loadDatabase() {
+    _initData().then((value) {
+      _loadScreen();
+      setState(() {});
+    });
+  }
+
+  void _loadScreen() {
+    _body = Scaffold(
       body: Column(
         children: [
           FutureBuilder<List<Collaborator>>(
-            future: alo(),
+            future: dashboardCubit?.getCollaborators(),
             builder: (context, snapshot) {
               List<Widget> children = [];
               if (snapshot.hasData) {
@@ -38,9 +64,20 @@ class DashboardScreen extends StatelessWidget {
                 child: Column(children: children),
               );
             },
+          ),
+          ElevatedButton(
+            onPressed: () {
+              _addCollaborator();
+            },
+            child: Text("add"),
           )
         ],
       ),
     );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _body;
   }
 }

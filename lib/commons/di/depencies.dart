@@ -3,8 +3,10 @@ import 'package:today_sale/commons/database/dao/collaborator_dao.dart';
 import 'package:today_sale/commons/utils/constants/app_constants.dart';
 import 'package:today_sale/dashboard/data/repository/dashboard_repository.dart';
 import 'package:today_sale/dashboard/domain/repository/idashboard_repository.dart';
+import 'package:today_sale/dashboard/domain/usecase/add_colaborator_use_case.dart';
 import 'package:today_sale/dashboard/domain/usecase/get_colaborators_use_case.dart';
 import 'package:today_sale/dashboard/presentation/cubit/dashboard_collaborators_cubit.dart';
+import 'package:today_sale/dashboard/presentation/usecase/iadd_colaborators_use_case.dart';
 import 'package:today_sale/dashboard/presentation/usecase/iget_colaborators_use_case.dart';
 import 'package:today_sale/sales_database.dart';
 
@@ -21,7 +23,8 @@ void registerDepencies() {
 void _registerCubitDependencies() {
   dependencies.registerFactory<DashboardCollaboratorsCubit>(
     () => DashboardCollaboratorsCubit(
-        getCollaboratorsUseCase: dependencies.get()),
+        getCollaboratorsUseCase: dependencies.get(),
+        addColaboratorsUseCase: dependencies.get()),
   );
 }
 
@@ -42,6 +45,9 @@ void _registerDatabaseDependencies() {
 void _registerUseCaseDependencies() {
   dependencies.registerSingletonWithDependencies<IGetColaboratorsUseCase>(
       () => GetColaboratorsUseCase(repository: dependencies.get()),
+      dependsOn: [IDashboardRepository]);
+  dependencies.registerSingletonWithDependencies<IAddColaboratorsUseCase>(
+      () => AddColaboratorsUseCase(repository: dependencies.get()),
       dependsOn: [IDashboardRepository]);
 }
 
