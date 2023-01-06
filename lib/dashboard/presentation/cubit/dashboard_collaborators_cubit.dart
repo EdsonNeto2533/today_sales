@@ -3,18 +3,20 @@ import 'package:today_sale/dashboard/presentation/usecase/iadd_colaborators_use_
 import 'package:today_sale/dashboard/presentation/usecase/iget_colaborators_use_case.dart';
 
 class DashboardCollaboratorsCubit {
-  IGetColaboratorsUseCase getCollaboratorsUseCase;
-  IAddColaboratorsUseCase addColaboratorsUseCase;
+  final IGetColaboratorsUseCase _getCollaboratorsUseCase;
+  final IAddColaboratorsUseCase _addColaboratorsUseCase;
 
   DashboardCollaboratorsCubit(
-      {required this.getCollaboratorsUseCase,
-      required this.addColaboratorsUseCase});
+      {required getCollaboratorsUseCase, required addColaboratorsUseCase})
+      : _addColaboratorsUseCase = addColaboratorsUseCase,
+        _getCollaboratorsUseCase = getCollaboratorsUseCase;
 
   Future<List<Collaborator>> getCollaborators() async {
-    return await getCollaboratorsUseCase.getCollaborators();
+    return await _getCollaboratorsUseCase.getCollaborators();
   }
 
   Future<void> addColaborator() async {
-    return addColaboratorsUseCase.addCollaborator(Collaborator(name: "joao"));
+    return await _addColaboratorsUseCase
+        .addCollaborator(Collaborator(name: "joao"));
   }
 }
