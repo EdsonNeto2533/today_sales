@@ -1,11 +1,11 @@
 import 'package:today_sale/commons/database/entitys/collaborator.dart';
 import 'package:today_sale/dashboard/domain/repository/idashboard_repository.dart';
-import 'package:today_sale/dashboard/presentation/usecase/iadd_colaborators_use_case.dart';
+import 'package:today_sale/dashboard/presentation/usecase/iadd_collaborators_use_case.dart';
 
-class AddColaboratorsUseCase implements IAddColaboratorsUseCase {
+class AddCollaboratorsUseCase implements IAddCollaboratorsUseCase {
   final IDashboardRepository _repository;
 
-  AddColaboratorsUseCase({required IDashboardRepository repository})
+  AddCollaboratorsUseCase({required IDashboardRepository repository})
       : _repository = repository;
 
   @override
