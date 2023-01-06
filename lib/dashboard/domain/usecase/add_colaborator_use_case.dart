@@ -3,12 +3,13 @@ import 'package:today_sale/dashboard/domain/repository/idashboard_repository.dar
 import 'package:today_sale/dashboard/presentation/usecase/iadd_colaborators_use_case.dart';
 
 class AddColaboratorsUseCase implements IAddColaboratorsUseCase {
-  IDashboardRepository repository;
+  final IDashboardRepository _repository;
 
-  AddColaboratorsUseCase({required this.repository});
+  AddColaboratorsUseCase({required IDashboardRepository repository})
+      : _repository = repository;
 
   @override
   Future<void> addCollaborator(Collaborator collaborator) {
-    return repository.insertCollaborator(collaborator);
+    return _repository.insertCollaborator(collaborator);
   }
 }
