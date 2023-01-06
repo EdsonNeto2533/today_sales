@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:today_sale/commons/di/depencies.dart';
-import 'package:today_sale/dashboard/presentation/ui/dashboard_screen.dart';
+import 'package:today_sale/dashboard/presentation/ui/views/dashboard_screen.dart';
 
 void main() {
   runApp(const MyApp());

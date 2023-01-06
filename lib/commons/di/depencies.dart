@@ -27,7 +27,8 @@ void _registerCubitDependencies() {
   dependencies.registerFactory<DashboardCollaboratorsCubit>(
     () => DashboardCollaboratorsCubit(
         getCollaboratorsUseCase: dependencies.get(),
-        addColaboratorsUseCase: dependencies.get()),
+        addColaboratorsUseCase: dependencies.get(),
+        removeCollaboratorUseCase: dependencies.get()),
   );
 }
 

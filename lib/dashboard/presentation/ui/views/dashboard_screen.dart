@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get_it/get_it.dart';
 import 'package:today_sale/commons/database/entitys/collaborator.dart';
 import 'package:today_sale/dashboard/presentation/cubit/dashboard_collaborators_cubit.dart';
+import 'package:today_sale/dashboard/presentation/ui/components/collaborators_list_widget.dart';
 
 class DashboardScreen extends StatefulWidget {
   DashboardScreen({Key? key}) : super(key: key);
@@ -20,7 +21,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   void _addCollaborator() {
-    dashboardCubit?.addColaborator().then((value) {
+    dashboardCubit?.addColaborator("joao").then((value) {
+      _loadScreen();
+      setState(() {});
+    });
+  }
+
+  void _removeCollaborator(Collaborator collaborator) {
+    dashboardCubit?.removeCollaborator(collaborator).then((value) {
       _loadScreen();
       setState(() {});
     });
@@ -48,21 +56,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
           FutureBuilder<List<Collaborator>>(
             future: dashboardCubit?.getCollaborators(),
             builder: (context, snapshot) {
-              List<Widget> children = [];
+              Widget children = Container();
               if (snapshot.hasData) {
-                print(snapshot.data);
-                children.add(Text("deu boa"));
+                children = snapshot.data != null
+                    ? CollaboratorsList(
+                        collaboratorList: snapshot.data!,
+                        removeClicked: (collaborator) {
+                          _removeCollaborator(collaborator);
+                        },
+                      )
+                    : Container();
               } else if (snapshot.hasError) {
                 print(snapshot.error);
-                children.add(Text("deu ruim"));
               } else {
                 print(snapshot.data);
-                children.add(Text("carregando"));
               }
-              return Container(
-                margin: EdgeInsets.only(top: 44),
-                child: Column(children: children),
-              );
+              return children;
             },
           ),
           ElevatedButton(
