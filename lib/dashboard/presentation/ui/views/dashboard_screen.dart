@@ -14,7 +14,7 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  Widget _body = CircularProgressIndicator();
+  Widget _body = const CircularProgressIndicator();
   Future<void> _initData() async {
     await GetIt.I.allReady();
     dashboardCubit = GetIt.I.get();
@@ -51,36 +51,38 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   void _loadScreen() {
     _body = Scaffold(
-      body: Column(
-        children: [
-          FutureBuilder<List<Collaborator>>(
-            future: dashboardCubit?.getCollaborators(),
-            builder: (context, snapshot) {
-              Widget children = Container();
-              if (snapshot.hasData) {
-                children = snapshot.data != null
-                    ? CollaboratorsList(
-                        collaboratorList: snapshot.data!,
-                        removeClicked: (collaborator) {
-                          _removeCollaborator(collaborator);
-                        },
-                      )
-                    : Container();
-              } else if (snapshot.hasError) {
-                print(snapshot.error);
-              } else {
-                print(snapshot.data);
-              }
-              return children;
-            },
-          ),
-          ElevatedButton(
-            onPressed: () {
-              _addCollaborator();
-            },
-            child: Text("add"),
-          )
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            FutureBuilder<List<Collaborator>>(
+              future: dashboardCubit?.getCollaborators(),
+              builder: (context, snapshot) {
+                Widget child = Container();
+                if (snapshot.hasData) {
+                  child = snapshot.data != null
+                      ? CollaboratorsList(
+                          collaboratorList: snapshot.data!,
+                          removeClicked: (collaborator) {
+                            _removeCollaborator(collaborator);
+                          },
+                        )
+                      : Container();
+                } else if (snapshot.hasError) {
+                  print(snapshot.error);
+                } else {
+                  child = const CircularProgressIndicator();
+                }
+                return child;
+              },
+            ),
+            ElevatedButton(
+              onPressed: () {
+                _addCollaborator();
+              },
+              child: Text("add"),
+            )
+          ],
+        ),
       ),
     );
   }

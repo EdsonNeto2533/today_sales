@@ -15,11 +15,11 @@ class CollaboratorsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.6,
       child: ListView.builder(
         itemBuilder: (context, index) {
           return Card(
             margin: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+            elevation: 5,
             child: ListTile(
               title: Text(collaboratorList[index].name),
               trailing: IconButton(
@@ -35,6 +35,8 @@ class CollaboratorsList extends StatelessWidget {
           );
         },
         itemCount: collaboratorList.length,
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
       ),
     );
   }
