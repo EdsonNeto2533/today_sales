@@ -34,6 +34,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
     });
   }
 
+  void _showAddCollaboratorBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return GestureDetector(
+            onTap: (() {}),
+            child: Container(
+              height: 400,
+              decoration: BoxDecoration(color: Colors.amber),
+            ),
+          );
+        });
+  }
+
   @override
   void initState() {
     _loadDatabase();
@@ -77,7 +91,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
             ElevatedButton(
               onPressed: () {
-                _addCollaborator();
+                _showAddCollaboratorBottomSheet(context);
               },
               child: Text("add"),
             )

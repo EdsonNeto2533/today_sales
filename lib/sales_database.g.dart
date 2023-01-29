@@ -63,6 +63,8 @@ class _$SalesDatabase extends SalesDatabase {
 
   CollaboratorDAO? _collaboratorDAOInstance;
 
+  SaleDAO? _saleDAOInstance;
+
   Future<sqflite.Database> open(
     String path,
     List<Migration> migrations, [
@@ -86,6 +88,8 @@ class _$SalesDatabase extends SalesDatabase {
       onCreate: (database, version) async {
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `collaborator_table` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT NOT NULL)');
+        await database.execute(
+            'CREATE TABLE IF NOT EXISTS `sales_table` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `value` REAL NOT NULL, `collaboratorId` INTEGER NOT NULL, FOREIGN KEY (`collaboratorId`) REFERENCES `collaborator_table` (`id`) ON UPDATE NO ACTION ON DELETE NO ACTION)');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -97,6 +101,11 @@ class _$SalesDatabase extends SalesDatabase {
   CollaboratorDAO get collaboratorDAO {
     return _collaboratorDAOInstance ??=
         _$CollaboratorDAO(database, changeListener);
+  }
+
+  @override
+  SaleDAO get saleDAO {
+    return _saleDAOInstance ??= _$SaleDAO(database, changeListener);
   }
 }
 
@@ -151,5 +160,79 @@ class _$CollaboratorDAO extends CollaboratorDAO {
   @override
   Future<void> removeCollaborator(Collaborator collaborator) async {
     await _collaboratorDeletionAdapter.delete(collaborator);
+  }
+}
+
+class _$SaleDAO extends SaleDAO {
+  _$SaleDAO(
+    this.database,
+    this.changeListener,
+  )   : _queryAdapter = QueryAdapter(database),
+        _saleInsertionAdapter = InsertionAdapter(
+            database,
+            'sales_table',
+            (Sale item) => <String, Object?>{
+                  'id': item.id,
+                  'value': item.value,
+                  'collaboratorId': item.collaboratorId
+                }),
+        _saleDeletionAdapter = DeletionAdapter(
+            database,
+            'sales_table',
+            ['id'],
+            (Sale item) => <String, Object?>{
+                  'id': item.id,
+                  'value': item.value,
+                  'collaboratorId': item.collaboratorId
+                });
+
+  final sqflite.DatabaseExecutor database;
+
+  final StreamController<String> changeListener;
+
+  final QueryAdapter _queryAdapter;
+
+  final InsertionAdapter<Sale> _saleInsertionAdapter;
+
+  final DeletionAdapter<Sale> _saleDeletionAdapter;
+
+  @override
+  Future<List<Sale>> getSales() async {
+    return _queryAdapter.queryList('SELECT * FROM sales_table',
+        mapper: (Map<String, Object?> row) => Sale(
+            id: row['id'] as int?,
+            value: row['value'] as double,
+            collaboratorId: row['collaboratorId'] as int));
+  }
+
+  @override
+  Future<List<Sale>> getSaleById(int saleId) async {
+    return _queryAdapter.queryList('SELECT * FROM sales_table WHERE id == ?1',
+        mapper: (Map<String, Object?> row) => Sale(
+            id: row['id'] as int?,
+            value: row['value'] as double,
+            collaboratorId: row['collaboratorId'] as int),
+        arguments: [saleId]);
+  }
+
+  @override
+  Future<List<Sale>> getSaleByCollaboratorId(int collaboratorId) async {
+    return _queryAdapter.queryList(
+        'SELECT * FROM sales_table WHERE collaboratorId == ?1',
+        mapper: (Map<String, Object?> row) => Sale(
+            id: row['id'] as int?,
+            value: row['value'] as double,
+            collaboratorId: row['collaboratorId'] as int),
+        arguments: [collaboratorId]);
+  }
+
+  @override
+  Future<void> insertSale(Sale sale) async {
+    await _saleInsertionAdapter.insert(sale, OnConflictStrategy.replace);
+  }
+
+  @override
+  Future<void> deleteSale(Sale sale) async {
+    await _saleDeletionAdapter.delete(sale);
   }
 }
