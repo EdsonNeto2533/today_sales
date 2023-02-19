@@ -6,7 +6,7 @@ import 'package:today_sale/dashboard/data/repository/dashboard_repository.dart';
 import 'package:today_sale/dashboard/domain/repository/idashboard_repository.dart';
 import 'package:today_sale/dashboard/domain/usecase/add_collaborator_use_case.dart';
 import 'package:today_sale/dashboard/domain/usecase/remove_collaborator_use_case.dart';
-import 'package:today_sale/dashboard/presentation/cubit/dashboard_collaborators_cubit.dart';
+import 'package:today_sale/dashboard/presentation/viewmodel/dashboard_collaborators_viewmodel.dart';
 import 'package:today_sale/dashboard/presentation/usecase/iadd_collaborators_use_case.dart';
 import 'package:today_sale/dashboard/presentation/usecase/iget_collaborators_use_case.dart';
 import 'package:today_sale/dashboard/presentation/usecase/iremove_colaborator_use_case.dart';
@@ -25,8 +25,8 @@ void registerDepencies() {
 }
 
 void _registerCubitDependencies() {
-  dependencies.registerFactory<DashboardCollaboratorsCubit>(
-    () => DashboardCollaboratorsCubit(
+  dependencies.registerFactory<DashboardCollaboratorsViewModel>(
+    () => DashboardCollaboratorsViewModel(
         getCollaboratorsUseCase: dependencies.get(),
         addColaboratorsUseCase: dependencies.get(),
         removeCollaboratorUseCase: dependencies.get()),

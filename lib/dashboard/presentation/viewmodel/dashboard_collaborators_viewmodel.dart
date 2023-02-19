@@ -3,12 +3,12 @@ import 'package:today_sale/dashboard/presentation/usecase/iadd_collaborators_use
 import 'package:today_sale/dashboard/presentation/usecase/iget_collaborators_use_case.dart';
 import 'package:today_sale/dashboard/presentation/usecase/iremove_colaborator_use_case.dart';
 
-class DashboardCollaboratorsCubit {
+class DashboardCollaboratorsViewModel {
   final IGetCollaboratorsUseCase _getCollaboratorsUseCase;
   final IAddCollaboratorsUseCase _addColaboratorsUseCase;
   final IRemoveCollaboratorUseCase _removeCollaboratorUseCase;
 
-  DashboardCollaboratorsCubit(
+  DashboardCollaboratorsViewModel(
       {required IGetCollaboratorsUseCase getCollaboratorsUseCase,
       required IAddCollaboratorsUseCase addColaboratorsUseCase,
       required IRemoveCollaboratorUseCase removeCollaboratorUseCase})

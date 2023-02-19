@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:today_sale/commons/di/depencies.dart';
-import 'package:today_sale/dashboard/presentation/ui/views/dashboard_screen.dart';
+import 'package:today_sale/commons/utils/theme/app_theme.dart';
+import 'package:today_sale/splash.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,9 +16,7 @@ class MyApp extends StatelessWidget {
     registerDepencies();
     return MaterialApp(
         title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: DashboardScreen());
+        theme: ManageUTheme.appTheme,
+        home: SplashScreen());
   }
 }

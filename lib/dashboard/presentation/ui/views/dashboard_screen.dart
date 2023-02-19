@@ -3,7 +3,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get_it/get_it.dart';
 import 'package:today_sale/commons/database/entitys/collaborator.dart';
-import 'package:today_sale/dashboard/presentation/cubit/dashboard_collaborators_cubit.dart';
+import 'package:today_sale/dashboard/presentation/viewmodel/dashboard_collaborators_viewmodel.dart';
 import 'package:today_sale/dashboard/presentation/ui/components/collaborators_list_widget.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -15,20 +15,17 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   Widget _body = const CircularProgressIndicator();
-  Future<void> _initData() async {
-    await GetIt.I.allReady();
-    dashboardCubit = GetIt.I.get();
-  }
+  DashboardCollaboratorsViewModel dashboardCubit = GetIt.I.get();
 
   void _addCollaborator() {
-    dashboardCubit?.addColaborator("joao").then((value) {
+    dashboardCubit.addColaborator("joao").then((value) {
       _loadScreen();
       setState(() {});
     });
   }
 
   void _removeCollaborator(Collaborator collaborator) {
-    dashboardCubit?.removeCollaborator(collaborator).then((value) {
+    dashboardCubit.removeCollaborator(collaborator).then((value) {
       _loadScreen();
       setState(() {});
     });
@@ -54,13 +51,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
     super.initState();
   }
 
-  DashboardCollaboratorsCubit? dashboardCubit;
-
   void _loadDatabase() {
-    _initData().then((value) {
-      _loadScreen();
-      setState(() {});
-    });
+    _loadScreen();
+    setState(() {});
   }
 
   void _loadScreen() {
@@ -69,7 +62,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         child: Column(
           children: [
             FutureBuilder<List<Collaborator>>(
-              future: dashboardCubit?.getCollaborators(),
+              future: dashboardCubit.getCollaborators(),
               builder: (context, snapshot) {
                 Widget child = Container();
                 if (snapshot.hasData) {
