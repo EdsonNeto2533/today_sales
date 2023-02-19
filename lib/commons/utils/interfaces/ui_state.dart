@@ -1,13 +1,13 @@
 abstract class UIState<T> {}
 
-class Success<T> extends UIState<T> {
+class Success<T> implements UIState<T> {
   T value;
   Success(this.value);
 }
 
-class Failure<T> extends UIState<T> {
+class Failure<T> implements UIState<T> {
   String errorMessage;
   Failure(this.errorMessage);
 }
 
-class Loading<T> extends UIState<T> {}
+class Loading<T> implements UIState<T> {}

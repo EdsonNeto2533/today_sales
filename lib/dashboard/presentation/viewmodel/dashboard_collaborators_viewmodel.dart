@@ -1,4 +1,6 @@
+import 'package:flutter/widgets.dart';
 import 'package:today_sale/commons/database/entitys/collaborator.dart';
+import 'package:today_sale/commons/utils/interfaces/ui_state.dart';
 import 'package:today_sale/dashboard/presentation/usecase/iadd_collaborators_use_case.dart';
 import 'package:today_sale/dashboard/presentation/usecase/iget_collaborators_use_case.dart';
 import 'package:today_sale/dashboard/presentation/usecase/iremove_colaborator_use_case.dart';
@@ -7,6 +9,9 @@ class DashboardCollaboratorsViewModel {
   final IGetCollaboratorsUseCase _getCollaboratorsUseCase;
   final IAddCollaboratorsUseCase _addColaboratorsUseCase;
   final IRemoveCollaboratorUseCase _removeCollaboratorUseCase;
+
+  ValueNotifier<UIState<List<Collaborator>>> collaboratorListState =
+      ValueNotifier(Loading());
 
   DashboardCollaboratorsViewModel(
       {required IGetCollaboratorsUseCase getCollaboratorsUseCase,
