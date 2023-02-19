@@ -11,7 +11,7 @@ class DashboardCollaboratorsViewModel {
   final IRemoveCollaboratorUseCase _removeCollaboratorUseCase;
 
   ValueNotifier<UIState<List<Collaborator>>> collaboratorListState =
-      ValueNotifier(Loading());
+      ValueNotifier(LoadingUIState());
 
   DashboardCollaboratorsViewModel(
       {required IGetCollaboratorsUseCase getCollaboratorsUseCase,
@@ -21,16 +21,32 @@ class DashboardCollaboratorsViewModel {
         _getCollaboratorsUseCase = getCollaboratorsUseCase,
         _removeCollaboratorUseCase = removeCollaboratorUseCase;
 
-  Future<List<Collaborator>> getCollaborators() async {
-    return await _getCollaboratorsUseCase.getCollaborators();
+  void getCollaborators() async {
+    collaboratorListState.value = LoadingUIState();
+    try {
+      var collaboratorList = await _getCollaboratorsUseCase.getCollaborators();
+      collaboratorListState.value = SuccessUIState(collaboratorList);
+    } catch (e) {
+      collaboratorListState.value = FailureUIstate(e.toString());
+    }
   }
 
-  Future<void> addColaborator(String collaboratorName) async {
-    return await _addColaboratorsUseCase
-        .addCollaborator(Collaborator(name: collaboratorName));
+  void addColaborator(String collaboratorName) async {
+    try {
+      await _addColaboratorsUseCase
+          .addCollaborator(Collaborator(name: collaboratorName));
+      getCollaborators();
+    } catch (e) {
+      collaboratorListState.value = FailureUIstate(e.toString());
+    }
   }
 
-  Future<void> removeCollaborator(Collaborator collaborator) async {
-    return await _removeCollaboratorUseCase.removeColaborator(collaborator);
+  void removeCollaborator(Collaborator collaborator) async {
+    try {
+      await _removeCollaboratorUseCase.removeColaborator(collaborator);
+      getCollaborators();
+    } catch (e) {
+      collaboratorListState.value = FailureUIstate(e.toString());
+    }
   }
 }
