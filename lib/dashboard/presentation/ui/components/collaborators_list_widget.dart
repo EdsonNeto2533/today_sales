@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:today_sale/commons/database/entitys/collaborator.dart';
+import 'package:today_sale/commons/utils/constants/app_images.dart';
 
 class CollaboratorsList extends StatelessWidget {
   List<Collaborator> collaboratorList;
@@ -19,6 +20,9 @@ class CollaboratorsList extends StatelessWidget {
             elevation: 5,
             child: ListTile(
               title: Text(collaboratorList[index].name),
+              leading: CircleAvatar(
+                child: Image.asset(AppImages.ic_add_user),
+              ),
               trailing: IconButton(
                 onPressed: () {
                   removeClicked.call(collaboratorList[index]);

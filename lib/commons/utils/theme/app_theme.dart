@@ -18,5 +18,7 @@ class ManageUTheme {
         appBarTheme: AppBarTheme(
           backgroundColor: primaryColor,
         ),
+        floatingActionButtonTheme:
+            FloatingActionButtonThemeData(backgroundColor: primaryColor),
       );
 }
