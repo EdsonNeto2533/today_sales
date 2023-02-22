@@ -7,6 +7,7 @@ import 'package:today_sale/commons/components/main_button.dart';
 import 'package:today_sale/commons/utils/constants/app_images.dart';
 import 'package:today_sale/commons/utils/theme/app_theme.dart';
 import 'package:today_sale/dashboard/presentation/ui/views/dashboard_screen.dart';
+import 'package:today_sale/onboarding/presentation/ui/components/onboarding_app_bar.dart';
 import 'package:today_sale/onboarding/presentation/ui/components/onboarding_footer.dart';
 import 'package:today_sale/onboarding/presentation/ui/components/onboarding_page_widget.dart';
 
@@ -30,13 +31,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: OnboardingAppBar(),
       body: OnBoardingSlider(
           onFinish: _navigateToDasboard,
           finishButtonText: "Próximo",
           skipTextButton: const Text("pular"),
           totalPage: 3,
-          indicatorAbove: true,
           controllerColor: ManageUTheme.primaryColor,
           pageBackgroundColor: Colors.white,
           headerBackgroundColor: Colors.white,

@@ -8,11 +8,15 @@ class ManageUTheme {
         primaryColor: primaryColor,
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-              backgroundColor: primaryColor,
-              padding: EdgeInsets.all(10),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(44),
-              )),
+            backgroundColor: primaryColor,
+            padding: EdgeInsets.all(10),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(44),
+            ),
+          ),
+        ),
+        appBarTheme: AppBarTheme(
+          backgroundColor: primaryColor,
         ),
       );
 }
