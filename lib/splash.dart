@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get_it/get_it.dart';
+import 'package:today_sale/commons/utils/constants/app_images.dart';
 import 'package:today_sale/commons/utils/theme/app_theme.dart';
 import 'package:today_sale/dashboard/presentation/ui/views/dashboard_screen.dart';
+import 'package:today_sale/onboarding/presentation/ui/views/onboarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -24,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void _initGetIt() async {
     _initData();
     Timer(const Duration(seconds: 5), () {
-      _navigateToDasboard();
+      _navigateToOnboarding();
     });
   }
 
@@ -32,11 +34,11 @@ class _SplashScreenState extends State<SplashScreen> {
     await GetIt.I.allReady();
   }
 
-  void _navigateToDasboard() {
+  void _navigateToOnboarding() {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) {
-        return DashboardScreen();
+        return const OnboardingScreen();
       }),
     );
   }
@@ -49,7 +51,7 @@ class _SplashScreenState extends State<SplashScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Center(
-            child: Image.asset("assets/images/app_banner.png"),
+            child: Image.asset(AppImages.appBanner),
           ),
         ],
       ),
