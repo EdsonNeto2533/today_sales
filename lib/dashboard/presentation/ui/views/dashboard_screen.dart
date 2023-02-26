@@ -7,6 +7,7 @@ import 'package:today_sale/commons/database/entitys/collaborator.dart';
 import 'package:today_sale/commons/utils/constants/app_images.dart';
 import 'package:today_sale/commons/utils/interfaces/ui_state.dart';
 import 'package:today_sale/dashboard/presentation/ui/components/input_fields.dart';
+import 'package:today_sale/dashboard/presentation/ui/components/sales_input_fields.dart';
 import 'package:today_sale/dashboard/presentation/viewmodel/dashboard_collaborators_viewmodel.dart';
 import 'package:today_sale/dashboard/presentation/ui/components/collaborators_list_widget.dart';
 
@@ -51,8 +52,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
               child: CollaboratorsList(
                 collaboratorList: (state as SuccessUIState).value,
                 removeClicked: _removeCollaborator,
-                addSaleClicked: (CollaboratorId) {
-                  _showAddSaleBottomSheet(context, CollaboratorId);
+                addSaleClicked: (collaborator) {
+                  _showAddSaleBottomSheet(context, collaborator);
                 },
               ),
             );
@@ -98,24 +99,24 @@ class _DashboardScreenState extends State<DashboardScreen> {
         });
   }
 
-  void _showAddSaleBottomSheet(BuildContext context, int? CollaboratorId) {
-    if (CollaboratorId != null) {
-      showModalBottomSheet(
-        context: context,
-        isScrollControlled: true,
-        builder: (context) {
-          return Wrap(
-            children: [
-              GestureDetector(
-                onTap: (() {}),
-                child: InputFieldsWidget(
-                  collaboratorIncluded: _addCollaborator,
-                ),
+  void _showAddSaleBottomSheet(
+      BuildContext context, Collaborator collaborator) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) {
+        return Wrap(
+          children: [
+            GestureDetector(
+              onTap: (() {}),
+              child: SalesFieldsWidget(
+                collaborator: collaborator,
+                saleIncluded: (sale) {},
               ),
-            ],
-          );
-        },
-      );
-    }
+            ),
+          ],
+        );
+      },
+    );
   }
 }

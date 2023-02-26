@@ -5,7 +5,7 @@ import 'package:today_sale/commons/utils/constants/app_images.dart';
 class CollaboratorsList extends StatelessWidget {
   List<Collaborator> collaboratorList;
   final Function(Collaborator) removeClicked;
-  final Function(int? collaboratorId) addSaleClicked;
+  final Function(Collaborator) addSaleClicked;
 
   CollaboratorsList(
       {Key? key,
@@ -43,7 +43,7 @@ class CollaboratorsList extends StatelessWidget {
                     ),
                     IconButton(
                       onPressed: () {
-                        addSaleClicked.call(collaboratorList[index].id);
+                        addSaleClicked.call(collaboratorList[index]);
                       },
                       icon: const Icon(
                         Icons.add,

@@ -5,27 +5,30 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/widgets.dart';
 import 'package:today_sale/commons/components/main_button.dart';
 import 'package:today_sale/commons/database/entitys/collaborator.dart';
+import 'package:today_sale/commons/database/entitys/sale.dart';
 import 'package:today_sale/dashboard/presentation/constants/dashboard_strings.dart';
 
-class InputFieldsWidget extends StatefulWidget {
-  Function(Collaborator collaborator) collaboratorIncluded;
+class SalesFieldsWidget extends StatefulWidget {
+  Function(Sale sale) saleIncluded;
+  Collaborator collaborator;
 
-  InputFieldsWidget({super.key, required this.collaboratorIncluded});
+  SalesFieldsWidget(
+      {super.key, required this.saleIncluded, required this.collaborator});
 
   @override
-  State<InputFieldsWidget> createState() => _InputFieldsWidgetState();
+  State<SalesFieldsWidget> createState() => _SalesFieldsWidgetState();
 }
 
-class _InputFieldsWidgetState extends State<InputFieldsWidget> {
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _titleController = TextEditingController();
+class _SalesFieldsWidgetState extends State<SalesFieldsWidget> {
+  final TextEditingController _saleValueController = TextEditingController();
 
   void _verifyFields() {
-    if (_titleController.text.isNotEmpty && _nameController.text.isNotEmpty) {
-      widget.collaboratorIncluded.call(
-        Collaborator(
-            name: _nameController.text, description: _titleController.text),
-      );
+    if (_saleValueController.text.isNotEmpty) {
+      String value = _saleValueController.text.replaceAll(",", ".");
+      widget.saleIncluded.call(Sale(
+        collaboratorId: widget.collaborator.id!,
+        value: double.parse(value),
+      ));
       Navigator.of(context).pop();
     }
   }
@@ -38,7 +41,7 @@ class _InputFieldsWidgetState extends State<InputFieldsWidget> {
         Container(
           margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
           child: Text(
-            DashboardStrings.inputFieldsTitle,
+            DashboardStrings.collaboratorSaleText(widget.collaborator.name),
             style: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
@@ -48,25 +51,13 @@ class _InputFieldsWidgetState extends State<InputFieldsWidget> {
         Container(
           margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
           child: TextField(
-            controller: _nameController,
-            keyboardType: TextInputType.text,
-            decoration: InputDecoration(
-                labelText: DashboardStrings.collaboratorNamePlaceholder),
+            controller: _saleValueController,
+            keyboardType: TextInputType.number,
+            decoration:
+                InputDecoration(labelText: DashboardStrings.salePlaceholder),
             onSubmitted: (value) {
               _verifyFields();
             },
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-          child: TextField(
-            controller: _titleController,
-            keyboardType: TextInputType.text,
-            decoration: InputDecoration(
-                labelText: DashboardStrings.collaboratorDescPlaceholder),
-            onSubmitted: ((_) {
-              _verifyFields();
-            }),
           ),
         ),
         Container(
