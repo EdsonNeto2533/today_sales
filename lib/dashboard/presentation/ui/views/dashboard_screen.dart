@@ -6,6 +6,7 @@ import 'package:today_sale/commons/components/app_bar.dart';
 import 'package:today_sale/commons/database/entitys/collaborator.dart';
 import 'package:today_sale/commons/utils/constants/app_images.dart';
 import 'package:today_sale/commons/utils/interfaces/ui_state.dart';
+import 'package:today_sale/dashboard/presentation/ui/components/input_fields.dart';
 import 'package:today_sale/dashboard/presentation/viewmodel/dashboard_collaborators_viewmodel.dart';
 import 'package:today_sale/dashboard/presentation/ui/components/collaborators_list_widget.dart';
 
@@ -31,7 +32,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       appBar: ManageUAppBar(),
       floatingActionButton: FloatingActionButton(
         onPressed: (() {
-          _addCollaborator();
+          _showAddCollaboratorBottomSheet(context);
         }),
         child: Image.asset(AppImages.ic_add_user),
       ),
@@ -70,8 +71,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  void _addCollaborator() {
-    dashboardViewModel.addColaborator("joaozino");
+  void _addCollaborator(Collaborator collaborator) {
+    dashboardViewModel.addColaborator(collaborator);
   }
 
   void _removeCollaborator(Collaborator collaborator) {
@@ -84,9 +85,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
         builder: (context) {
           return GestureDetector(
             onTap: (() {}),
-            child: Container(
-              height: 400,
-              decoration: BoxDecoration(color: Colors.amber),
+            child: InputFieldsWidget(
+              collaboratorIncluded: _addCollaborator,
             ),
           );
         });

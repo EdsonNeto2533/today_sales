@@ -16,3 +16,5 @@ abstract class SalesDatabase extends FloorDatabase {
   CollaboratorDAO get collaboratorDAO;
   SaleDAO get saleDAO;
 }
+
+//flutter packages pub run build_runner build

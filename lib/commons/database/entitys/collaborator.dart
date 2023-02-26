@@ -5,6 +5,7 @@ class Collaborator {
   @PrimaryKey(autoGenerate: true)
   int? id;
   final String name;
+  final String description;
 
-  Collaborator({this.id, required this.name});
+  Collaborator({this.id, required this.name, required this.description});
 }

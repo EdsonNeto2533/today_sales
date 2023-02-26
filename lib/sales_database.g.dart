@@ -87,7 +87,7 @@ class _$SalesDatabase extends SalesDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `collaborator_table` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT NOT NULL)');
+            'CREATE TABLE IF NOT EXISTS `collaborator_table` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT NOT NULL, `description` TEXT NOT NULL)');
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `sales_table` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `value` REAL NOT NULL, `collaboratorId` INTEGER NOT NULL, FOREIGN KEY (`collaboratorId`) REFERENCES `collaborator_table` (`id`) ON UPDATE NO ACTION ON DELETE NO ACTION)');
 
@@ -117,14 +117,20 @@ class _$CollaboratorDAO extends CollaboratorDAO {
         _collaboratorInsertionAdapter = InsertionAdapter(
             database,
             'collaborator_table',
-            (Collaborator item) =>
-                <String, Object?>{'id': item.id, 'name': item.name}),
+            (Collaborator item) => <String, Object?>{
+                  'id': item.id,
+                  'name': item.name,
+                  'description': item.description
+                }),
         _collaboratorDeletionAdapter = DeletionAdapter(
             database,
             'collaborator_table',
             ['id'],
-            (Collaborator item) =>
-                <String, Object?>{'id': item.id, 'name': item.name});
+            (Collaborator item) => <String, Object?>{
+                  'id': item.id,
+                  'name': item.name,
+                  'description': item.description
+                });
 
   final sqflite.DatabaseExecutor database;
 
@@ -139,15 +145,19 @@ class _$CollaboratorDAO extends CollaboratorDAO {
   @override
   Future<List<Collaborator>> getCollaborators() async {
     return _queryAdapter.queryList('SELECT * FROM collaborator_table',
-        mapper: (Map<String, Object?> row) =>
-            Collaborator(id: row['id'] as int?, name: row['name'] as String));
+        mapper: (Map<String, Object?> row) => Collaborator(
+            id: row['id'] as int?,
+            name: row['name'] as String,
+            description: row['description'] as String));
   }
 
   @override
   Future<Collaborator?> getCollaboratorById(int collaboratorId) async {
     return _queryAdapter.query('SELECT * FROM collaborator_table WHERE id = ?1',
-        mapper: (Map<String, Object?> row) =>
-            Collaborator(id: row['id'] as int?, name: row['name'] as String),
+        mapper: (Map<String, Object?> row) => Collaborator(
+            id: row['id'] as int?,
+            name: row['name'] as String,
+            description: row['description'] as String),
         arguments: [collaboratorId]);
   }
 

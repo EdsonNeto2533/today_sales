@@ -18,18 +18,21 @@ class CollaboratorsList extends StatelessWidget {
           return Card(
             margin: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
             elevation: 5,
-            child: ListTile(
-              title: Text(collaboratorList[index].name),
-              leading: CircleAvatar(
-                child: Image.asset(AppImages.ic_add_user),
-              ),
-              trailing: IconButton(
-                onPressed: () {
-                  removeClicked.call(collaboratorList[index]);
-                },
-                icon: const Icon(
-                  Icons.delete,
-                  color: Colors.red,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListTile(
+                title: Text(collaboratorList[index].name),
+                leading: CircleAvatar(
+                  child: Image.asset(AppImages.ic_add_user),
+                ),
+                trailing: IconButton(
+                  onPressed: () {
+                    removeClicked.call(collaboratorList[index]);
+                  },
+                  icon: const Icon(
+                    Icons.delete,
+                    color: Colors.red,
+                  ),
                 ),
               ),
             ),

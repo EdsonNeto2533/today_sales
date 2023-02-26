@@ -31,10 +31,9 @@ class DashboardCollaboratorsViewModel {
     }
   }
 
-  void addColaborator(String collaboratorName) async {
+  void addColaborator(Collaborator collaborator) async {
     try {
-      await _addColaboratorsUseCase
-          .addCollaborator(Collaborator(name: collaboratorName));
+      await _addColaboratorsUseCase.addCollaborator(collaborator);
       getCollaborators();
     } catch (e) {
       collaboratorListState.value = FailureUIstate(e.toString());
