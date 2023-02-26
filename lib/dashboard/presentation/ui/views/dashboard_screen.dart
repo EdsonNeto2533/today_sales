@@ -50,8 +50,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
               margin: const EdgeInsets.only(top: 32),
               child: CollaboratorsList(
                 collaboratorList: (state as SuccessUIState).value,
-                removeClicked: (collaborator) {
-                  _removeCollaborator(collaborator);
+                removeClicked: _removeCollaborator,
+                addSaleClicked: (CollaboratorId) {
+                  _showAddSaleBottomSheet(context, CollaboratorId);
                 },
               ),
             );
@@ -82,13 +83,39 @@ class _DashboardScreenState extends State<DashboardScreen> {
   void _showAddCollaboratorBottomSheet(BuildContext context) {
     showModalBottomSheet(
         context: context,
+        isScrollControlled: true,
         builder: (context) {
-          return GestureDetector(
-            onTap: (() {}),
-            child: InputFieldsWidget(
-              collaboratorIncluded: _addCollaborator,
-            ),
+          return Wrap(
+            children: [
+              GestureDetector(
+                onTap: (() {}),
+                child: InputFieldsWidget(
+                  collaboratorIncluded: _addCollaborator,
+                ),
+              ),
+            ],
           );
         });
+  }
+
+  void _showAddSaleBottomSheet(BuildContext context, int? CollaboratorId) {
+    if (CollaboratorId != null) {
+      showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        builder: (context) {
+          return Wrap(
+            children: [
+              GestureDetector(
+                onTap: (() {}),
+                child: InputFieldsWidget(
+                  collaboratorIncluded: _addCollaborator,
+                ),
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 }
