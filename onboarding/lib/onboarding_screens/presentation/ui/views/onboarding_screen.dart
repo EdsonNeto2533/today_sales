@@ -1,9 +1,11 @@
+import 'package:commons/commons.dart';
 import 'package:commons/utils/constants/app_images.dart';
 import 'package:commons/utils/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_onboarding_slider/flutter_onboarding_slider.dart';
 import '../components/onboarding_app_bar.dart';
 import '../components/onboarding_page_widget.dart';
@@ -17,14 +19,7 @@ class OnboardingScreen extends StatefulWidget {
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
   void _navigateToDasboard() {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) {
-        return Scaffold(
-          appBar: AppBar(title: Text("todo navegacao")),
-        );
-      }),
-    );
+    Modular.to.pushReplacementNamed(AppRoutes.dashboardModuleRoute);
   }
 
   @override
