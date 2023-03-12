@@ -1,13 +1,12 @@
 import 'dart:async';
 
+import 'package:commons/commons.dart';
 import 'package:commons/utils/constants/app_images.dart';
 import 'package:commons/utils/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-
-import '../onboarding_screens/presentation/ui/views/onboarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -20,12 +19,12 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _initGetIt();
+    _initModular();
   }
 
-  void _initGetIt() async {
+  void _initModular() async {
     _initData();
-    Timer(const Duration(seconds: 5), () {
+    Timer(const Duration(seconds: 3), () {
       _navigateToOnboarding();
     });
   }
@@ -35,12 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void _navigateToOnboarding() {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) {
-        return const OnboardingScreen();
-      }),
-    );
+    Modular.to.pushReplacementNamed(AppRoutes.onboardingModuleRoute);
   }
 
   @override

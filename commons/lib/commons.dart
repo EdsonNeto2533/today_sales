@@ -6,3 +6,4 @@ export 'package:commons/utils/constants/app_constants.dart';
 export 'package:commons/utils/constants/app_images.dart';
 export 'package:commons/utils/interfaces/ui_state.dart';
 export 'package:commons/utils/theme/app_theme.dart';
+export 'package:commons/utils/constants/app_routes.dart';
