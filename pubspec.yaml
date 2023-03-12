@@ -29,9 +29,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  floor: ^1.4.1
   flutter_modular: ^5.0.3
-  flutter_onboarding_slider: ^1.0.8
+  commons:
+    path: commons
+  core:
+    path: core
+  onboarding: 
+    path: onboarding
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -40,8 +44,6 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  floor_generator: ^1.4.1
-  build_runner: ^2.1.2
   
 
   # The "flutter_lints" package below contains a set of recommended lints to

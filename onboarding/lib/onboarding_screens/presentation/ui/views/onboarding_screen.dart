@@ -1,15 +1,12 @@
+import 'package:commons/utils/constants/app_images.dart';
+import 'package:commons/utils/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_onboarding_slider/flutter_onboarding_slider.dart';
-import 'package:today_sale/commons/components/main_button.dart';
-import 'package:today_sale/commons/utils/constants/app_images.dart';
-import 'package:today_sale/commons/utils/theme/app_theme.dart';
-import 'package:today_sale/dashboard/presentation/ui/views/dashboard_screen.dart';
-import 'package:today_sale/onboarding/presentation/ui/components/onboarding_app_bar.dart';
-import 'package:today_sale/onboarding/presentation/ui/components/onboarding_footer.dart';
-import 'package:today_sale/onboarding/presentation/ui/components/onboarding_page_widget.dart';
+import '../components/onboarding_app_bar.dart';
+import '../components/onboarding_page_widget.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -23,7 +20,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) {
-        return const DashboardScreen();
+        return Scaffold(
+          appBar: AppBar(title: Text("todo navegacao")),
+        );
       }),
     );
   }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:today_sale/commons/utils/theme/app_theme.dart';
+
+import '../utils/theme/app_theme.dart';
 
 class MainButtonWidget extends StatelessWidget {
   Function buttonClicked;

@@ -1,10 +1,9 @@
 import 'dart:ui';
 
+import 'package:commons/utils/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-
-import '../../../../commons/utils/theme/app_theme.dart';
 
 class OnboardingFooterDots extends StatefulWidget {
   int selectedIndex;

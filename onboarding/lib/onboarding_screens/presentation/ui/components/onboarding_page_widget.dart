@@ -1,5 +1,5 @@
+import 'package:commons/utils/theme/app_theme.dart';
 import 'package:flutter/widgets.dart';
-import 'package:today_sale/commons/utils/theme/app_theme.dart';
 
 class OnboardingPageWidget extends StatelessWidget {
   String title;

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/widgets.dart';
-import 'package:today_sale/commons/components/main_button.dart';
-import 'package:today_sale/commons/utils/constants/app_images.dart';
+
+import '../utils/constants/app_images.dart';
 
 class ManageUAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget? bottomBar;

@@ -7,7 +7,7 @@ import 'package:get_it/get_it.dart';
 import 'package:today_sale/commons/utils/constants/app_images.dart';
 import 'package:today_sale/commons/utils/theme/app_theme.dart';
 import 'package:today_sale/dashboard/presentation/ui/views/dashboard_screen.dart';
-import 'package:today_sale/onboarding/presentation/ui/views/onboarding_screen.dart';
+import '../onboarding/lib/presentation/ui/views/onboarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

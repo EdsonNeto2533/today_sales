@@ -4,8 +4,6 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/widgets.dart';
 import 'package:today_sale/commons/components/main_button.dart';
-import '../../../../../core/lib/database/entitys/collaborator.dart';
-import '../../../../../core/lib/database/entitys/sale.dart';
 import 'package:today_sale/dashboard/presentation/constants/dashboard_strings.dart';
 
 class SalesFieldsWidget extends StatefulWidget {
