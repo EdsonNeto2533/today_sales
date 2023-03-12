@@ -14,10 +14,8 @@ dependencies:
   flutter_onboarding_slider: ^1.0.8  
   commons:
     path: ../commons
-    publish_to: none
   core:
     path: ../core
-    publish_to: none
 
 dev_dependencies:
   flutter_test:
