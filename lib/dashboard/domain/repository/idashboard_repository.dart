@@ -1,4 +1,4 @@
-import 'package:today_sale/commons/database/entitys/collaborator.dart';
+import '../../../../core/lib/database/entitys/collaborator.dart';
 
 abstract class IDashboardRepository {
   Future<List<Collaborator>> getCollaborators();

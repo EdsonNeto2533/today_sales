@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:get_it/get_it.dart';
 import 'package:today_sale/commons/components/app_bar.dart';
-import 'package:today_sale/commons/database/entitys/collaborator.dart';
+import '../../../../../core/lib/database/entitys/collaborator.dart';
 import 'package:today_sale/commons/utils/constants/app_images.dart';
 import 'package:today_sale/commons/utils/interfaces/ui_state.dart';
 import 'package:today_sale/dashboard/presentation/ui/components/input_fields.dart';

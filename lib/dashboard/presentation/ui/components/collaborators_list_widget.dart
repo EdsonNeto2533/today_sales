@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:today_sale/commons/database/entitys/collaborator.dart';
+import '../../../../../core/lib/database/entitys/collaborator.dart';
 import 'package:today_sale/commons/utils/constants/app_images.dart';
 
 class CollaboratorsList extends StatelessWidget {

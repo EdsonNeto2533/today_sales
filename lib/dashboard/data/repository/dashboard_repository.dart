@@ -1,5 +1,5 @@
-import 'package:today_sale/commons/database/dao/collaborator_dao.dart';
-import 'package:today_sale/commons/database/entitys/collaborator.dart';
+import '../../../../core/lib/database/dao/collaborator_dao.dart';
+import '../../../../core/lib/database/entitys/collaborator.dart';
 import 'package:today_sale/dashboard/domain/repository/idashboard_repository.dart';
 
 class DashboardRepository implements IDashboardRepository {

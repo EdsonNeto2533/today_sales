@@ -1,4 +1,4 @@
-import 'package:today_sale/commons/database/entitys/collaborator.dart';
+import '../../../../core/lib/database/entitys/collaborator.dart';
 import 'package:today_sale/dashboard/domain/repository/idashboard_repository.dart';
 import 'package:today_sale/dashboard/presentation/usecase/iadd_collaborators_use_case.dart';
 

@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:today_sale/commons/database/entitys/collaborator.dart';
+import '../../../../core/lib/database/entitys/collaborator.dart';
 import 'package:today_sale/commons/utils/interfaces/ui_state.dart';
 import 'package:today_sale/dashboard/presentation/usecase/iadd_collaborators_use_case.dart';
 import 'package:today_sale/dashboard/presentation/usecase/iget_collaborators_use_case.dart';
