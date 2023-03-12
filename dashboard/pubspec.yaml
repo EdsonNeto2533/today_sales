@@ -1,4 +1,4 @@
-name: onboarding
+name: dashboard
 description: A new Flutter package project.
 version: 0.0.1
 homepage:
@@ -11,12 +11,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_modular: ^5.0.3
-  flutter_onboarding_slider: ^1.0.8  
+  flutter_modular: ^5.0.3  
   commons:
     path: ../commons
   core:
-    path: ../core
+    path: ../core  
 
 dev_dependencies:
   flutter_test:
