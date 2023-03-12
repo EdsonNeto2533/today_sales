@@ -1,7 +1,11 @@
 library dashboard;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
+import 'package:flutter_modular/flutter_modular.dart';
+
+class DashboardModule extends Module {
+  @override
+  final List<Bind> binds = [];
+
+  @override
+  List<ModularRoute> get routes => [];
 }
