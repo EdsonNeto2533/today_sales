@@ -13,19 +13,19 @@ import '../components/input_fields.dart';
 import '../components/sales_input_fields.dart';
 
 class DashboardScreen extends StatefulWidget {
-  const DashboardScreen({Key? key}) : super(key: key);
+  DashboardCollaboratorsViewModel dashboardViewModel;
+  DashboardScreen({Key? key, required this.dashboardViewModel})
+      : super(key: key);
 
   @override
   State<DashboardScreen> createState() => _DashboardScreenState();
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  DashboardCollaboratorsViewModel dashboardViewModel = Modular.get();
-
   @override
   void initState() {
     super.initState();
-    dashboardViewModel.getCollaborators();
+    widget.dashboardViewModel.getCollaborators();
   }
 
   @override
@@ -39,7 +39,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         child: Image.asset(AppImages.ic_add_user),
       ),
       body: ValueListenableBuilder(
-        valueListenable: dashboardViewModel.collaboratorListState,
+        valueListenable: widget.dashboardViewModel.collaboratorListState,
         builder: (
           BuildContext context,
           UIState<List<Collaborator>> value,
@@ -75,11 +75,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   void _addCollaborator(Collaborator collaborator) {
-    dashboardViewModel.addColaborator(collaborator);
+    widget.dashboardViewModel.addColaborator(collaborator);
   }
 
   void _removeCollaborator(Collaborator collaborator) {
-    dashboardViewModel.removeCollaborator(collaborator);
+    widget.dashboardViewModel.removeCollaborator(collaborator);
   }
 
   void _showAddCollaboratorBottomSheet(BuildContext context) {
