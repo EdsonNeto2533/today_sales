@@ -1,5 +1,6 @@
 import 'package:commons/commons.dart';
 import 'package:commons/utils/theme/app_theme.dart';
+import 'package:core/di/binds/core_binds.dart';
 import 'package:dashboard/dashboard_module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -7,6 +8,8 @@ import 'package:onboarding/onboarding_module.dart';
 import 'package:today_sale/splash_screen/splash.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  DatabaseBuilder.buildDatabase();
   runApp(ModularApp(
     module: MainModule(),
     child: const MainAppWidget(),

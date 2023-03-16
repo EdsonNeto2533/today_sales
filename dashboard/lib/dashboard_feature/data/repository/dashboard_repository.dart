@@ -6,8 +6,8 @@ import '../../domain/repository/idashboard_repository.dart';
 class DashboardRepository implements IDashboardRepository {
   final CollaboratorDAO _collaboratorDAO;
 
-  DashboardRepository({required CollaboratorDAO collaboratorDAO})
-      : _collaboratorDAO = collaboratorDAO;
+  DashboardRepository({required CollaboratorDAO? collaboratorDAO})
+      : _collaboratorDAO = collaboratorDAO!;
 
   @override
   Future<Collaborator?> getCollaboratorById(int id) {
