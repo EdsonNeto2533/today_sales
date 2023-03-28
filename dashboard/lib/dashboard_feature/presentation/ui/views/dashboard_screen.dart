@@ -112,7 +112,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
               onTap: (() {}),
               child: SalesFieldsWidget(
                 collaborator: collaborator,
-                saleIncluded: (sale) {},
+                saleIncluded: (sale) {
+                  widget.dashboardViewModel.addSale(sale);
+                },
               ),
             ),
           ],

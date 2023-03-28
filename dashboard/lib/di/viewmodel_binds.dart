@@ -7,6 +7,7 @@ List<Bind> viewModelBinds = [
       getCollaboratorsUseCase: i.get(),
       addColaboratorsUseCase: i.get(),
       removeCollaboratorUseCase: i.get(),
+      addSaleUseCase: i.get(),
     ),
   )
 ];

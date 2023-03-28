@@ -6,7 +6,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 List<Bind> repositoryBinds = [
   Bind.factory<IDashboardRepository>(
     (i) => DashboardRepository(
-      collaboratorDAO: DatabaseBuilder.collaboratorDAO,
-    ),
+        collaboratorDAO: DatabaseBuilder.collaboratorDAO,
+        saleDAO: DatabaseBuilder.saleDAO),
   )
 ];

@@ -1,13 +1,19 @@
 import 'package:core/database/dao/collaborator_dao.dart';
+import 'package:core/database/dao/sale_dao.dart';
 import 'package:core/database/entitys/collaborator.dart';
+import 'package:core/database/entitys/sale.dart';
 
 import '../../domain/repository/idashboard_repository.dart';
 
 class DashboardRepository implements IDashboardRepository {
   final CollaboratorDAO _collaboratorDAO;
+  final SaleDAO _saleDAO;
 
-  DashboardRepository({required CollaboratorDAO? collaboratorDAO})
-      : _collaboratorDAO = collaboratorDAO!;
+  DashboardRepository({
+    required CollaboratorDAO? collaboratorDAO,
+    required SaleDAO? saleDAO,
+  })  : _collaboratorDAO = collaboratorDAO!,
+        _saleDAO = saleDAO!;
 
   @override
   Future<Collaborator?> getCollaboratorById(int id) {
@@ -27,5 +33,10 @@ class DashboardRepository implements IDashboardRepository {
   @override
   Future<void> removeCollaborator(Collaborator collaborator) {
     return _collaboratorDAO.removeCollaborator(collaborator);
+  }
+
+  @override
+  Future<void> addSale(Sale sale) {
+    return _saleDAO.insertSale(sale);
   }
 }
