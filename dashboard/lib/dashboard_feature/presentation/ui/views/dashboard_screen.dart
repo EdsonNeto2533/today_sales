@@ -2,20 +2,22 @@ import 'package:commons/components/app_bar.dart';
 import 'package:commons/utils/constants/app_images.dart';
 import 'package:commons/utils/interfaces/ui_state.dart';
 import 'package:core/database/entitys/collaborator.dart';
+import 'package:dashboard/dashboard_feature/presentation/bloc/event/dashboard_bloc_event.dart';
+import 'package:dashboard/dashboard_feature/presentation/bloc/state/dashboard_bloc_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../../viewmodel/dashboard_collaborators_viewmodel.dart';
+import '../../bloc/bloc/dashboard_collaborators_bloc.dart';
 import '../components/collaborators_list_widget.dart';
 import '../components/input_fields.dart';
 import '../components/sales_input_fields.dart';
 
 class DashboardScreen extends StatefulWidget {
-  DashboardCollaboratorsViewModel dashboardViewModel;
-  DashboardScreen({Key? key, required this.dashboardViewModel})
-      : super(key: key);
+  DashboardCollaboratorsBloc dashboardBloc;
+  DashboardScreen({Key? key, required this.dashboardBloc}) : super(key: key);
 
   @override
   State<DashboardScreen> createState() => _DashboardScreenState();
@@ -25,7 +27,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   void initState() {
     super.initState();
-    widget.dashboardViewModel.getCollaborators();
+    widget.dashboardBloc.add(const GetAllCollaboratosBlocEvent());
   }
 
   @override
@@ -38,20 +40,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
         }),
         child: Image.asset(AppImages.ic_add_user),
       ),
-      body: ValueListenableBuilder(
-        valueListenable: widget.dashboardViewModel.collaboratorListState,
-        builder: (
-          BuildContext context,
-          UIState<List<Collaborator>> value,
-          Widget? child,
-        ) {
-          UIState<List<Collaborator>> state = value;
+      body: BlocBuilder(
+        bloc: widget.dashboardBloc,
+        builder: (context, DashboardBlocState value) {
+          DashboardBlocState state = value;
 
-          if (state is SuccessUIState) {
+          if (state is SuccessBlocState) {
             return Container(
               margin: const EdgeInsets.only(top: 32),
               child: CollaboratorsList(
-                collaboratorList: (state as SuccessUIState).value,
+                collaboratorList: state.collaborators,
                 removeClicked: _removeCollaborator,
                 addSaleClicked: (collaborator) {
                   _showAddSaleBottomSheet(context, collaborator);
@@ -60,11 +58,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
             );
           }
 
-          if (state is LoadingUIState) {
-            return CircularProgressIndicator();
+          if (state is LoadingDashboardBlocState) {
+            return const CircularProgressIndicator();
           }
 
-          if (state is FailureUIstate) {
+          if (state is ErrorDashboardBlocState) {
             print(state);
           }
 
@@ -75,11 +73,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   void _addCollaborator(Collaborator collaborator) {
-    widget.dashboardViewModel.addColaborator(collaborator);
+    widget.dashboardBloc.add(AddCollaboratoBlocEvent(collaborator));
   }
 
   void _removeCollaborator(Collaborator collaborator) {
-    widget.dashboardViewModel.removeCollaborator(collaborator);
+    widget.dashboardBloc.add(RemoveCollaboratoBlocEvent(collaborator));
   }
 
   void _showAddCollaboratorBottomSheet(BuildContext context) {
@@ -113,7 +111,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               child: SalesFieldsWidget(
                 collaborator: collaborator,
                 saleIncluded: (sale) {
-                  widget.dashboardViewModel.addSale(sale);
+                  widget.dashboardBloc.add(AddSaleBlocEvent(sale));
                 },
               ),
             ),

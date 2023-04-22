@@ -20,7 +20,7 @@ class DashboardModule extends Module {
         ChildRoute(
           AppRoutes.initialBaseRoute,
           child: (_, __) => DashboardScreen(
-            dashboardViewModel: Modular.get(),
+            dashboardBloc: Modular.get(),
           ),
         ),
       ];
