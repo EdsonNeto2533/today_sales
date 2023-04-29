@@ -7,5 +7,9 @@ class Collaborator {
   final String name;
   final String description;
 
-  Collaborator({this.id, required this.name, required this.description});
+  Collaborator({
+    this.id,
+    required this.name,
+    required this.description,
+  });
 }

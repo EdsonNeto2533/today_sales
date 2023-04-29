@@ -89,7 +89,7 @@ class _$SalesDatabase extends SalesDatabase {
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `collaborator_table` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT NOT NULL, `description` TEXT NOT NULL)');
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `sales_table` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `value` REAL NOT NULL, `collaboratorId` INTEGER NOT NULL, FOREIGN KEY (`collaboratorId`) REFERENCES `collaborator_table` (`id`) ON UPDATE NO ACTION ON DELETE NO ACTION)');
+            'CREATE TABLE IF NOT EXISTS `sales_table` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `value` REAL NOT NULL, `collaboratorId` INTEGER NOT NULL, `saleDate` TEXT NOT NULL, FOREIGN KEY (`collaboratorId`) REFERENCES `collaborator_table` (`id`) ON UPDATE NO ACTION ON DELETE NO ACTION)');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -184,7 +184,8 @@ class _$SaleDAO extends SaleDAO {
             (Sale item) => <String, Object?>{
                   'id': item.id,
                   'value': item.value,
-                  'collaboratorId': item.collaboratorId
+                  'collaboratorId': item.collaboratorId,
+                  'saleDate': _dateTimeTypeConverter.encode(item.saleDate)
                 }),
         _saleDeletionAdapter = DeletionAdapter(
             database,
@@ -193,7 +194,8 @@ class _$SaleDAO extends SaleDAO {
             (Sale item) => <String, Object?>{
                   'id': item.id,
                   'value': item.value,
-                  'collaboratorId': item.collaboratorId
+                  'collaboratorId': item.collaboratorId,
+                  'saleDate': _dateTimeTypeConverter.encode(item.saleDate)
                 });
 
   final sqflite.DatabaseExecutor database;
@@ -212,7 +214,9 @@ class _$SaleDAO extends SaleDAO {
         mapper: (Map<String, Object?> row) => Sale(
             id: row['id'] as int?,
             value: row['value'] as double,
-            collaboratorId: row['collaboratorId'] as int));
+            collaboratorId: row['collaboratorId'] as int,
+            saleDate:
+                _dateTimeTypeConverter.decode(row['saleDate'] as String)));
   }
 
   @override
@@ -221,7 +225,8 @@ class _$SaleDAO extends SaleDAO {
         mapper: (Map<String, Object?> row) => Sale(
             id: row['id'] as int?,
             value: row['value'] as double,
-            collaboratorId: row['collaboratorId'] as int),
+            collaboratorId: row['collaboratorId'] as int,
+            saleDate: _dateTimeTypeConverter.decode(row['saleDate'] as String)),
         arguments: [saleId]);
   }
 
@@ -232,7 +237,8 @@ class _$SaleDAO extends SaleDAO {
         mapper: (Map<String, Object?> row) => Sale(
             id: row['id'] as int?,
             value: row['value'] as double,
-            collaboratorId: row['collaboratorId'] as int),
+            collaboratorId: row['collaboratorId'] as int,
+            saleDate: _dateTimeTypeConverter.decode(row['saleDate'] as String)),
         arguments: [collaboratorId]);
   }
 
@@ -246,3 +252,6 @@ class _$SaleDAO extends SaleDAO {
     await _saleDeletionAdapter.delete(sale);
   }
 }
+
+// ignore_for_file: unused_element
+final _dateTimeTypeConverter = DateTimeTypeConverter();

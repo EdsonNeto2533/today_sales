@@ -15,6 +15,11 @@ class Sale {
 
   double value;
   int collaboratorId;
+  DateTime saleDate;
 
-  Sale({this.id, required this.value, required this.collaboratorId});
+  Sale(
+      {this.id,
+      required this.value,
+      required this.collaboratorId,
+      required this.saleDate});
 }
