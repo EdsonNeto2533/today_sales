@@ -1,10 +1,6 @@
-import 'package:commons/utils/interfaces/ui_state.dart';
-import 'package:core/database/entitys/collaborator.dart';
-import 'package:core/database/entitys/sale.dart';
 import 'package:dashboard/dashboard_feature/domain/usecase/add_sale_use_case.dart';
 import 'package:dashboard/dashboard_feature/presentation/bloc/event/dashboard_bloc_event.dart';
 import 'package:dashboard/dashboard_feature/presentation/bloc/state/dashboard_bloc_state.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../usecase/iadd_collaborators_use_case.dart';
@@ -38,7 +34,7 @@ class DashboardCollaboratorsBloc
     GetAllCollaboratosBlocEvent event,
     Emitter<DashboardBlocState> emitter,
   ) async {
-    emitter(LoadingDashboardBlocState());
+    emitter(const LoadingDashboardBlocState());
     try {
       var collaboratorList = await _getCollaboratorsUseCase.getCollaborators();
       emitter(SuccessBlocState(collaboratorList));

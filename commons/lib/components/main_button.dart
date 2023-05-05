@@ -14,18 +14,15 @@ class MainButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      child: ElevatedButton(
-        onPressed: () {
-          buttonClicked.call();
-        },
-        child: Text(
-          buttonText,
-          style: TextStyle(
-            color: ManageUTheme.fadingGrey,
-            fontSize: 20,
-          ),
+    return ElevatedButton(
+      onPressed: () {
+        buttonClicked.call();
+      },
+      child: Text(
+        buttonText,
+        style: TextStyle(
+          color: ManageUTheme.fadingGrey,
+          fontSize: 20,
         ),
       ),
     );

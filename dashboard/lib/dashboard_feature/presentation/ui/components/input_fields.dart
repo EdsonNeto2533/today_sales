@@ -1,14 +1,11 @@
 import 'package:commons/components/main_button.dart';
-import 'package:core/database/entitys/collaborator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/widgets.dart';
+
+import '../../../domain/model/dashboard_collaborator_model.dart';
 import '../../constants/dashboard_strings.dart';
 
 class InputFieldsWidget extends StatefulWidget {
-  Function(Collaborator collaborator) collaboratorIncluded;
+  Function(DashboardCollaboratorModel collaborator) collaboratorIncluded;
 
   InputFieldsWidget({super.key, required this.collaboratorIncluded});
 
@@ -23,8 +20,11 @@ class _InputFieldsWidgetState extends State<InputFieldsWidget> {
   void _verifyFields() {
     if (_titleController.text.isNotEmpty && _nameController.text.isNotEmpty) {
       widget.collaboratorIncluded.call(
-        Collaborator(
-            name: _nameController.text, description: _titleController.text),
+        DashboardCollaboratorModel(
+          name: _nameController.text,
+          description: _titleController.text,
+          sales: [],
+        ),
       );
       Navigator.of(context).pop();
     }
@@ -33,10 +33,10 @@ class _InputFieldsWidgetState extends State<InputFieldsWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(16),
+      margin: const EdgeInsets.all(16),
       child: Column(children: [
         Container(
-          margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+          margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
           child: Text(
             DashboardStrings.inputFieldsTitle,
             style: const TextStyle(
@@ -46,7 +46,7 @@ class _InputFieldsWidgetState extends State<InputFieldsWidget> {
           ),
         ),
         Container(
-          margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+          margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
           child: TextField(
             controller: _nameController,
             keyboardType: TextInputType.text,
@@ -58,7 +58,7 @@ class _InputFieldsWidgetState extends State<InputFieldsWidget> {
           ),
         ),
         Container(
-          margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+          margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
           child: TextField(
             controller: _titleController,
             keyboardType: TextInputType.text,
@@ -70,10 +70,12 @@ class _InputFieldsWidgetState extends State<InputFieldsWidget> {
           ),
         ),
         Container(
-          margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+          width: double.infinity,
+          margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
           child: MainButtonWidget(
-              buttonClicked: _verifyFields,
-              buttonText: DashboardStrings.addButtonText),
+            buttonClicked: _verifyFields,
+            buttonText: DashboardStrings.addButtonText,
+          ),
         ),
       ]),
     );

@@ -1,6 +1,5 @@
-import 'package:core/database/entitys/collaborator.dart';
-
 import '../../presentation/usecase/iadd_collaborators_use_case.dart';
+import '../model/dashboard_collaborator_model.dart';
 import '../repository/idashboard_repository.dart';
 
 class AddCollaboratorsUseCase implements IAddCollaboratorsUseCase {
@@ -10,7 +9,7 @@ class AddCollaboratorsUseCase implements IAddCollaboratorsUseCase {
       : _repository = repository;
 
   @override
-  Future<void> addCollaborator(Collaborator collaborator) {
-    return _repository.insertCollaborator(collaborator);
+  Future<void> addCollaborator(DashboardCollaboratorModel collaborator) {
+    return _repository.insertCollaborator(collaborator.toEntity());
   }
 }

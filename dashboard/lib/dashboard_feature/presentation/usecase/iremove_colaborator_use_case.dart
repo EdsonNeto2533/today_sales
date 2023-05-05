@@ -1,5 +1,5 @@
-import 'package:core/database/entitys/collaborator.dart';
+import '../../domain/model/dashboard_collaborator_model.dart';
 
 abstract class IRemoveCollaboratorUseCase {
-  Future<void> removeColaborator(Collaborator collaborator);
+  Future<void> removeColaborator(DashboardCollaboratorModel collaborator);
 }

@@ -39,4 +39,9 @@ class DashboardRepository implements IDashboardRepository {
   Future<void> addSale(Sale sale) {
     return _saleDAO.insertSale(sale);
   }
+
+  @override
+  Future<List<Sale>> getCollaboratorSales(int id) {
+    return _saleDAO.getSaleByCollaboratorId(id);
+  }
 }

@@ -1,14 +1,10 @@
 import 'package:commons/components/app_bar.dart';
 import 'package:commons/utils/constants/app_images.dart';
-import 'package:commons/utils/interfaces/ui_state.dart';
-import 'package:core/database/entitys/collaborator.dart';
+import 'package:dashboard/dashboard_feature/domain/model/dashboard_collaborator_model.dart';
 import 'package:dashboard/dashboard_feature/presentation/bloc/event/dashboard_bloc_event.dart';
 import 'package:dashboard/dashboard_feature/presentation/bloc/state/dashboard_bloc_state.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../bloc/bloc/dashboard_collaborators_bloc.dart';
 import '../components/collaborators_list_widget.dart';
@@ -16,8 +12,11 @@ import '../components/input_fields.dart';
 import '../components/sales_input_fields.dart';
 
 class DashboardScreen extends StatefulWidget {
-  DashboardCollaboratorsBloc dashboardBloc;
-  DashboardScreen({Key? key, required this.dashboardBloc}) : super(key: key);
+  final DashboardCollaboratorsBloc dashboardBloc;
+  const DashboardScreen({
+    Key? key,
+    required this.dashboardBloc,
+  }) : super(key: key);
 
   @override
   State<DashboardScreen> createState() => _DashboardScreenState();
@@ -36,7 +35,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       appBar: ManageUAppBar(),
       floatingActionButton: FloatingActionButton(
         onPressed: (() {
-          _showAddCollaboratorBottomSheet(context);
+          _showAddCollaboratorBottomSheet();
         }),
         child: Image.asset(AppImages.ic_add_user),
       ),
@@ -51,9 +50,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               child: CollaboratorsList(
                 collaboratorList: state.collaborators,
                 removeClicked: _removeCollaborator,
-                addSaleClicked: (collaborator) {
-                  _showAddSaleBottomSheet(context, collaborator);
-                },
+                addSaleClicked: _showAddSaleBottomSheet,
               ),
             );
           }
@@ -72,50 +69,60 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  void _addCollaborator(Collaborator collaborator) {
+  void _addCollaborator(DashboardCollaboratorModel collaborator) {
     widget.dashboardBloc.add(AddCollaboratoBlocEvent(collaborator));
   }
 
-  void _removeCollaborator(Collaborator collaborator) {
-    widget.dashboardBloc.add(RemoveCollaboratoBlocEvent(collaborator));
+  void _removeCollaborator(DashboardCollaboratorModel collaborator) {
+    widget.dashboardBloc.add(
+      RemoveCollaboratoBlocEvent(
+        collaborator,
+      ),
+    );
   }
 
-  void _showAddCollaboratorBottomSheet(BuildContext context) {
+  void _showAddCollaboratorBottomSheet() {
     showModalBottomSheet(
         context: context,
         isScrollControlled: true,
         builder: (context) {
-          return Wrap(
-            children: [
-              GestureDetector(
-                onTap: (() {}),
-                child: InputFieldsWidget(
-                  collaboratorIncluded: _addCollaborator,
+          return Padding(
+            padding: MediaQuery.of(context).viewInsets,
+            child: Wrap(
+              children: [
+                GestureDetector(
+                  onTap: (() {}),
+                  child: InputFieldsWidget(
+                    collaboratorIncluded: _addCollaborator,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           );
         });
   }
 
   void _showAddSaleBottomSheet(
-      BuildContext context, Collaborator collaborator) {
+    DashboardCollaboratorModel collaborator,
+  ) {
     showModalBottomSheet(
       context: context,
-      isScrollControlled: true,
       builder: (context) {
-        return Wrap(
-          children: [
-            GestureDetector(
-              onTap: (() {}),
-              child: SalesFieldsWidget(
-                collaborator: collaborator,
-                saleIncluded: (sale) {
-                  widget.dashboardBloc.add(AddSaleBlocEvent(sale));
-                },
+        return Padding(
+          padding: MediaQuery.of(context).viewInsets,
+          child: Wrap(
+            children: [
+              GestureDetector(
+                onTap: (() {}),
+                child: SalesFieldsWidget(
+                  collaborator: collaborator.toEntity(),
+                  saleIncluded: (sale) {
+                    widget.dashboardBloc.add(AddSaleBlocEvent(sale));
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         );
       },
     );

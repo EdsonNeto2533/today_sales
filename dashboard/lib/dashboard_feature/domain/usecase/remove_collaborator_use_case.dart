@@ -1,6 +1,5 @@
-import 'package:core/database/entitys/collaborator.dart';
-
 import '../../presentation/usecase/iremove_colaborator_use_case.dart';
+import '../model/dashboard_collaborator_model.dart';
 import '../repository/idashboard_repository.dart';
 
 class RemoveCollaboratorUseCase implements IRemoveCollaboratorUseCase {
@@ -10,7 +9,7 @@ class RemoveCollaboratorUseCase implements IRemoveCollaboratorUseCase {
       : _repository = repository;
 
   @override
-  Future<void> removeColaborator(Collaborator collaborator) {
-    return _repository.removeCollaborator(collaborator);
+  Future<void> removeColaborator(DashboardCollaboratorModel collaborator) {
+    return _repository.removeCollaborator(collaborator.toEntity());
   }
 }

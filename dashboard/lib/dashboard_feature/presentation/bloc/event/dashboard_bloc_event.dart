@@ -1,5 +1,5 @@
-import 'package:core/database/entitys/collaborator.dart';
 import 'package:core/database/entitys/sale.dart';
+import 'package:dashboard/dashboard_feature/domain/model/dashboard_collaborator_model.dart';
 
 abstract class DashboardBlocEvent {
   const DashboardBlocEvent();
@@ -10,7 +10,7 @@ class GetAllCollaboratosBlocEvent extends DashboardBlocEvent {
 }
 
 class AddCollaboratoBlocEvent extends DashboardBlocEvent {
-  final Collaborator collaborator;
+  final DashboardCollaboratorModel collaborator;
   const AddCollaboratoBlocEvent(this.collaborator);
 }
 
@@ -20,6 +20,6 @@ class AddSaleBlocEvent extends DashboardBlocEvent {
 }
 
 class RemoveCollaboratoBlocEvent extends DashboardBlocEvent {
-  final Collaborator collaborator;
+  final DashboardCollaboratorModel collaborator;
   const RemoveCollaboratoBlocEvent(this.collaborator);
 }

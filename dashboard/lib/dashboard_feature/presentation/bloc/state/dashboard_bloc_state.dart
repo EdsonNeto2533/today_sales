@@ -1,4 +1,4 @@
-import 'package:core/database/entitys/collaborator.dart';
+import 'package:dashboard/dashboard_feature/domain/model/dashboard_collaborator_model.dart';
 
 abstract class DashboardBlocState {
   const DashboardBlocState();
@@ -15,7 +15,7 @@ class LoadingDashboardBlocState extends DashboardBlocState {
 }
 
 class SuccessBlocState extends DashboardBlocState {
-  final List<Collaborator> collaborators;
+  final List<DashboardCollaboratorModel> collaborators;
 
   const SuccessBlocState(this.collaborators);
 }

@@ -11,4 +11,6 @@ abstract class IDashboardRepository {
   Future<void> removeCollaborator(Collaborator collaborator);
 
   Future<void> addSale(Sale sale);
+
+  Future<List<Sale>> getCollaboratorSales(int id);
 }
