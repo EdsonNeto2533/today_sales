@@ -13,6 +13,8 @@ dependencies:
     sdk: flutter
   flutter_modular: ^5.0.3  
   flutter_bloc: ^8.1.2
+  fpdart: ^0.6.0
+  mocktail: ^0.3.0
   commons:
     path: ../commons
   core:

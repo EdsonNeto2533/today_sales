@@ -2,6 +2,7 @@ import 'package:core/database/dao/collaborator_dao.dart';
 import 'package:core/database/dao/sale_dao.dart';
 import 'package:core/database/entitys/collaborator.dart';
 import 'package:core/database/entitys/sale.dart';
+import 'package:fpdart/fpdart.dart';
 
 import '../../domain/repository/idashboard_repository.dart';
 
@@ -26,8 +27,9 @@ class DashboardRepository implements IDashboardRepository {
   }
 
   @override
-  Future<void> insertCollaborator(Collaborator collaborator) {
-    return _collaboratorDAO.insertCollaborator(collaborator);
+  Future<Unit> insertCollaborator(Collaborator collaborator) async {
+    await _collaboratorDAO.insertCollaborator(collaborator);
+    return unit;
   }
 
   @override
