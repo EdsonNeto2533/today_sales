@@ -39,32 +39,48 @@ class _DashboardScreenState extends State<DashboardScreen> {
         }),
         child: Image.asset(AppImages.icAddUser),
       ),
-      body: BlocBuilder(
-        bloc: widget.dashboardBloc,
-        builder: (context, DashboardBlocState value) {
-          DashboardBlocState state = value;
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const SizedBox(
+            height: 48,
+          ),
+          Text(
+            "Colaboradores".toUpperCase(),
+            style: TextStyle(
+              color: Theme.of(context).primaryColor,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          BlocBuilder(
+            bloc: widget.dashboardBloc,
+            builder: (context, DashboardBlocState value) {
+              DashboardBlocState state = value;
 
-          if (state is SuccessBlocState) {
-            return Container(
-              margin: const EdgeInsets.only(top: 32),
-              child: CollaboratorsList(
-                collaboratorList: state.collaborators,
-                removeClicked: _removeCollaborator,
-                addSaleClicked: _showAddSaleBottomSheet,
-              ),
-            );
-          }
+              if (state is SuccessBlocState) {
+                return Container(
+                  margin: const EdgeInsets.only(top: 32),
+                  child: CollaboratorsList(
+                    collaboratorList: state.collaborators,
+                    removeClicked: _removeCollaborator,
+                    addSaleClicked: _showAddSaleBottomSheet,
+                  ),
+                );
+              }
 
-          if (state is LoadingDashboardBlocState) {
-            return const CircularProgressIndicator();
-          }
+              if (state is LoadingDashboardBlocState) {
+                return const CircularProgressIndicator();
+              }
 
-          if (state is ErrorDashboardBlocState) {
-            print(state);
-          }
+              if (state is ErrorDashboardBlocState) {
+                print(state);
+              }
 
-          return Container();
-        },
+              return Container();
+            },
+          ),
+        ],
       ),
     );
   }

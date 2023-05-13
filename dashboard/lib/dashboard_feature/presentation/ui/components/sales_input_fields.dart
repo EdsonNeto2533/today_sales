@@ -1,4 +1,4 @@
-import 'package:commons/components/main_button.dart';
+import 'package:commons/commons.dart';
 import 'package:core/database/entitys/collaborator.dart';
 import 'package:core/database/entitys/sale.dart';
 import 'package:flutter/material.dart';
@@ -23,9 +23,8 @@ class _SalesFieldsWidgetState extends State<SalesFieldsWidget> {
   final TextEditingController _saleValueController = TextEditingController();
   DateTime? _selectedDate;
 
-  String get _selectedDateText => _selectedDate != null
-      ? "Data selecionada: ${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}"
-      : "Data não selecionada";
+  String get _selectedDateText =>
+      DashboardStrings.selectedDateText(_selectedDate);
 
   void _verifyFields() {
     if (_saleValueController.text.isNotEmpty && _selectedDate != null) {
@@ -49,17 +48,17 @@ class _SalesFieldsWidgetState extends State<SalesFieldsWidget> {
         children: [
           Container(
             margin: const EdgeInsets.symmetric(
-              vertical: 8,
+              vertical: 32,
               horizontal: 16,
             ),
             child: Text(
               DashboardStrings.collaboratorSaleText(
                 widget.collaborator.name,
               ),
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).primaryColor),
             ),
           ),
           Container(
@@ -67,12 +66,10 @@ class _SalesFieldsWidgetState extends State<SalesFieldsWidget> {
               vertical: 8,
               horizontal: 16,
             ),
-            child: TextField(
+            child: MainTextInputWidget(
               controller: _saleValueController,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                labelText: DashboardStrings.salePlaceholder,
-              ),
+              inputType: TextInputType.number,
+              hint: DashboardStrings.salePlaceholder,
               onSubmitted: (value) {
                 _verifyFields();
               },
@@ -86,11 +83,13 @@ class _SalesFieldsWidgetState extends State<SalesFieldsWidget> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(_selectedDateText),
+                Expanded(
+                  child: Text(_selectedDateText),
+                ),
                 SizedBox(
                   child: MainButtonWidget(
                     buttonClicked: _showDatePick,
-                    buttonText: "Data venda",
+                    buttonText: DashboardStrings.saleDate,
                   ),
                 ),
               ],
@@ -101,7 +100,7 @@ class _SalesFieldsWidgetState extends State<SalesFieldsWidget> {
             margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             child: MainButtonWidget(
               buttonClicked: _verifyFields,
-              buttonText: DashboardStrings.addButtonText,
+              buttonText: DashboardStrings.addButtonText.toUpperCase(),
             ),
           ),
         ],
