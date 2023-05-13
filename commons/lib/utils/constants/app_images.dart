@@ -7,4 +7,5 @@ class AppImages {
   static String icCollaborators = "assets/images/ic_collaborators.png";
   static String icTrashCan = "assets/images/ic_trash.png";
   static String icCoin = "assets/images/ic_coin.png";
+  static String errorImage = "assets/images/error_image.png";
 }

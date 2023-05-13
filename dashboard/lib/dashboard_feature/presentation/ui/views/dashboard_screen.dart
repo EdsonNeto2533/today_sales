@@ -1,5 +1,4 @@
-import 'package:commons/components/app_bar.dart';
-import 'package:commons/utils/constants/app_images.dart';
+import 'package:commons/commons.dart';
 import 'package:dashboard/dashboard_feature/domain/model/dashboard_collaborator_model.dart';
 import 'package:dashboard/dashboard_feature/presentation/bloc/event/dashboard_bloc_event.dart';
 import 'package:dashboard/dashboard_feature/presentation/bloc/state/dashboard_bloc_state.dart';
@@ -42,30 +41,33 @@ class _DashboardScreenState extends State<DashboardScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const SizedBox(
-            height: 48,
-          ),
-          Text(
-            "Colaboradores".toUpperCase(),
-            style: TextStyle(
-              color: Theme.of(context).primaryColor,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
           BlocBuilder(
             bloc: widget.dashboardBloc,
             builder: (context, DashboardBlocState value) {
               DashboardBlocState state = value;
-
               if (state is SuccessBlocState) {
-                return Container(
-                  margin: const EdgeInsets.only(top: 32),
-                  child: CollaboratorsList(
-                    collaboratorList: state.collaborators,
-                    removeClicked: _removeCollaborator,
-                    addSaleClicked: _showAddSaleBottomSheet,
-                  ),
+                return Column(
+                  children: [
+                    const SizedBox(
+                      height: 48,
+                    ),
+                    Text(
+                      "Colaboradores".toUpperCase(),
+                      style: TextStyle(
+                        color: Theme.of(context).primaryColor,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(top: 32),
+                      child: CollaboratorsList(
+                        collaboratorList: state.collaborators,
+                        removeClicked: _removeCollaborator,
+                        addSaleClicked: _showAddSaleBottomSheet,
+                      ),
+                    ),
+                  ],
                 );
               }
 
@@ -74,7 +76,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
               }
 
               if (state is ErrorDashboardBlocState) {
-                print(state);
+                return ErrorPage(
+                  retryClicked: () => widget.dashboardBloc.add(
+                    const GetAllCollaboratosBlocEvent(),
+                  ),
+                );
               }
 
               return Container();
@@ -127,6 +133,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   ) {
     showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.0),
       ),
