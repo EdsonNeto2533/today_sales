@@ -47,8 +47,19 @@ class _SalesFieldsWidgetState extends State<SalesFieldsWidget> {
       child: Column(
         children: [
           Container(
+            margin: const EdgeInsets.only(
+              top: 8,
+              left: 16,
+              right: 16,
+              bottom: 16,
+            ),
+            child: Image.asset(
+              AppImages.icCoin,
+              color: Colors.black,
+            ),
+          ),
+          Container(
             margin: const EdgeInsets.symmetric(
-              vertical: 32,
               horizontal: 16,
             ),
             child: Text(
@@ -78,7 +89,7 @@ class _SalesFieldsWidgetState extends State<SalesFieldsWidget> {
           Container(
             margin: const EdgeInsets.symmetric(
               vertical: 8,
-              horizontal: 16,
+              horizontal: 24,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -97,7 +108,12 @@ class _SalesFieldsWidgetState extends State<SalesFieldsWidget> {
           ),
           Container(
             width: double.infinity,
-            margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+            margin: const EdgeInsets.only(
+              left: 16,
+              right: 16,
+              bottom: 32,
+              top: 8,
+            ),
             child: MainButtonWidget(
               buttonClicked: _verifyFields,
               buttonText: DashboardStrings.addButtonText.toUpperCase(),

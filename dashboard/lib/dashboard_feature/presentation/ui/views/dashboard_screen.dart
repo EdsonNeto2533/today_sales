@@ -123,6 +123,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
   ) {
     showModalBottomSheet(
       context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      backgroundColor: Colors.white,
       builder: (context) {
         return Padding(
           padding: MediaQuery.of(context).viewInsets,
