@@ -6,12 +6,14 @@ class CollaboratorsList extends StatelessWidget {
   final List<DashboardCollaboratorModel> collaboratorList;
   final Function(DashboardCollaboratorModel) removeClicked;
   final Function(DashboardCollaboratorModel) addSaleClicked;
+  final Function(DashboardCollaboratorModel) collaboratorDetailsClicked;
 
   const CollaboratorsList({
     Key? key,
     required this.collaboratorList,
     required this.removeClicked,
     required this.addSaleClicked,
+    required this.collaboratorDetailsClicked,
   }) : super(key: key);
 
   @override
@@ -19,16 +21,21 @@ class CollaboratorsList extends StatelessWidget {
     return SizedBox(
       child: ListView.builder(
         itemBuilder: (context, index) {
-          return Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
+          return GestureDetector(
+            onTap: () => collaboratorDetailsClicked.call(
+              collaboratorList[index],
             ),
-            margin: const EdgeInsets.only(left: 24, right: 24, bottom: 16),
-            elevation: 5,
-            child: CollaboratorItemWidthNew(
-              collaborator: collaboratorList[index],
-              addSaleClicked: addSaleClicked,
-              removeClicked: removeClicked,
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              margin: const EdgeInsets.only(left: 24, right: 24, bottom: 16),
+              elevation: 5,
+              child: CollaboratorItemWidthNew(
+                collaborator: collaboratorList[index],
+                addSaleClicked: addSaleClicked,
+                removeClicked: removeClicked,
+              ),
             ),
           );
         },

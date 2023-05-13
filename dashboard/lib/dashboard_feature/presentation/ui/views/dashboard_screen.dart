@@ -4,6 +4,7 @@ import 'package:dashboard/dashboard_feature/presentation/bloc/event/dashboard_bl
 import 'package:dashboard/dashboard_feature/presentation/bloc/state/dashboard_bloc_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../bloc/bloc/dashboard_collaborators_bloc.dart';
 import '../components/collaborators_list_widget.dart';
@@ -65,6 +66,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         collaboratorList: state.collaborators,
                         removeClicked: _removeCollaborator,
                         addSaleClicked: _showAddSaleBottomSheet,
+                        collaboratorDetailsClicked: _navigateToDetails,
                       ),
                     ),
                   ],
@@ -100,6 +102,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
       RemoveCollaboratoBlocEvent(
         collaborator,
       ),
+    );
+  }
+
+  void _navigateToDetails(DashboardCollaboratorModel collaboratorModel) {
+    Modular.to.pushNamed(
+      AppRoutes.collaboratorDetailsExternalRoute(collaboratorModel.id!),
     );
   }
 

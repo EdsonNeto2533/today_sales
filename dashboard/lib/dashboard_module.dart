@@ -1,6 +1,7 @@
 library dashboard;
 
 import 'package:commons/commons.dart';
+import 'package:dashboard/collaborator_details_feature/presentation/page/collaborator_details_page.dart';
 import 'package:dashboard/dashboard_feature/presentation/ui/views/dashboard_screen.dart';
 import 'package:dashboard/di/repository_binds.dart';
 import 'package:dashboard/di/usecase_binds.dart';
@@ -23,5 +24,11 @@ class DashboardModule extends Module {
             dashboardBloc: Modular.get(),
           ),
         ),
+        ChildRoute(
+          AppRoutes.collaboratorDetailsInternalRoute,
+          child: (_, args) => CollaboratorDetailsPage(
+            collaboratorId: args.params["id"],
+          ),
+        )
       ];
 }
