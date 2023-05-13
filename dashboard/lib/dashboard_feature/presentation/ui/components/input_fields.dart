@@ -1,4 +1,4 @@
-import 'package:commons/components/main_button.dart';
+import 'package:commons/commons.dart';
 import 'package:flutter/material.dart';
 
 import '../../../domain/model/dashboard_collaborator_model.dart';
@@ -36,22 +36,39 @@ class _InputFieldsWidgetState extends State<InputFieldsWidget> {
       margin: const EdgeInsets.all(16),
       child: Column(children: [
         Container(
-          margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-          child: Text(
-            DashboardStrings.inputFieldsTitle,
-            style: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
+          margin: const EdgeInsets.only(
+            top: 8,
+            left: 16,
+            right: 16,
+            bottom: 16,
+          ),
+          child: Image.asset(
+            AppImages.icCollaborators,
           ),
         ),
         Container(
-          margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-          child: TextField(
+          margin: const EdgeInsets.symmetric(
+            horizontal: 16,
+          ),
+          child: Text(
+            DashboardStrings.inputFieldsTitle,
+            style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).primaryColor),
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.only(
+            top: 16,
+            left: 16,
+            right: 16,
+            bottom: 8,
+          ),
+          child: MainTextInputWidget(
             controller: _nameController,
-            keyboardType: TextInputType.text,
-            decoration: InputDecoration(
-                labelText: DashboardStrings.collaboratorNamePlaceholder),
+            inputType: TextInputType.text,
+            hint: DashboardStrings.collaboratorNamePlaceholder,
             onSubmitted: (value) {
               _verifyFields();
             },
@@ -59,11 +76,10 @@ class _InputFieldsWidgetState extends State<InputFieldsWidget> {
         ),
         Container(
           margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-          child: TextField(
+          child: MainTextInputWidget(
             controller: _titleController,
-            keyboardType: TextInputType.text,
-            decoration: InputDecoration(
-                labelText: DashboardStrings.collaboratorDescPlaceholder),
+            inputType: TextInputType.text,
+            hint: DashboardStrings.collaboratorDescPlaceholder,
             onSubmitted: ((_) {
               _verifyFields();
             }),
@@ -71,7 +87,12 @@ class _InputFieldsWidgetState extends State<InputFieldsWidget> {
         ),
         Container(
           width: double.infinity,
-          margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+          margin: const EdgeInsets.only(
+            top: 8,
+            left: 16,
+            right: 16,
+            bottom: 32,
+          ),
           child: MainButtonWidget(
             buttonClicked: _verifyFields,
             buttonText: DashboardStrings.addButtonText,
