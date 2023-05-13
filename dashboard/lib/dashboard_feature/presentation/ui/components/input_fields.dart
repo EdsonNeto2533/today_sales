@@ -5,9 +5,9 @@ import '../../../domain/model/dashboard_collaborator_model.dart';
 import '../../constants/dashboard_strings.dart';
 
 class InputFieldsWidget extends StatefulWidget {
-  Function(DashboardCollaboratorModel collaborator) collaboratorIncluded;
+  final Function(DashboardCollaboratorModel collaborator) collaboratorIncluded;
 
-  InputFieldsWidget({super.key, required this.collaboratorIncluded});
+  const InputFieldsWidget({super.key, required this.collaboratorIncluded});
 
   @override
   State<InputFieldsWidget> createState() => _InputFieldsWidgetState();

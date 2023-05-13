@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import '../utils/theme/app_theme.dart';
 
 class MainButtonWidget extends StatelessWidget {
-  Function buttonClicked;
-  String buttonText;
+  final Function buttonClicked;
+  final String buttonText;
 
-  MainButtonWidget({
+  const MainButtonWidget({
     super.key,
     required this.buttonClicked,
     required this.buttonText,

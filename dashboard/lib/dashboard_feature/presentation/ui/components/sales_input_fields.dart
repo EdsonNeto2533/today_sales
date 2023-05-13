@@ -87,9 +87,11 @@ class _SalesFieldsWidgetState extends State<SalesFieldsWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(_selectedDateText),
-                MainButtonWidget(
-                  buttonClicked: _showDatePick,
-                  buttonText: "Data da venda",
+                SizedBox(
+                  child: MainButtonWidget(
+                    buttonClicked: _showDatePick,
+                    buttonText: "Data venda",
+                  ),
                 ),
               ],
             ),

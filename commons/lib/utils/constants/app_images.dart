@@ -4,4 +4,5 @@ class AppImages {
   static String onboardingImage2 = "assets/images/onboarding_image_2.png";
   static String onboardingImage3 = "assets/images/onboarding_image_3.png";
   static String ic_add_user = "assets/images/ic_add_user.png";
+  static String ic_collaborators = "assets/images/ic_collaborators.png";
 }
