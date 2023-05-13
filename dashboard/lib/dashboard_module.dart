@@ -27,7 +27,9 @@ class DashboardModule extends Module {
         ChildRoute(
           AppRoutes.collaboratorDetailsInternalRoute,
           child: (_, args) => CollaboratorDetailsPage(
-            collaboratorId: args.params["id"],
+            collaboratorId: int.parse(
+              args.params["id"],
+            ),
           ),
         )
       ];

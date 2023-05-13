@@ -1,4 +1,5 @@
 import 'package:dashboard/dashboard_feature/domain/usecase/add_sale_use_case.dart';
+import 'package:dashboard/dashboard_feature/domain/usecase/get_collaborator_by_id_use_case.dart';
 import 'package:dashboard/dashboard_feature/presentation/usecase/iadd_collaborators_use_case.dart';
 import 'package:dashboard/dashboard_feature/presentation/usecase/iremove_colaborator_use_case.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -28,5 +29,10 @@ List<Bind> useCaseBinds = [
     (i) => AddSaleUseCase(
       i.get(),
     ),
-  )
+  ),
+  Bind.factory<IGetCollaboratorByIdUseCase>(
+    (i) => GetCollaboratorByIdUseCase(
+      i.get(),
+    ),
+  ),
 ];
