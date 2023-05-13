@@ -1,3 +1,4 @@
+import 'package:commons/commons.dart';
 import 'package:flutter/material.dart';
 
 class CollaboratorDetailsPage extends StatefulWidget {
@@ -15,6 +16,9 @@ class CollaboratorDetailsPage extends StatefulWidget {
 class _CollaboratorDetailsPageState extends State<CollaboratorDetailsPage> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const Scaffold(
+      appBar: ManageUAppBar(),
+      body: Column(),
+    );
   }
 }
