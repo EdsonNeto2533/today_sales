@@ -32,12 +32,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ManageUAppBar(),
+      appBar: const ManageUAppBar(),
       floatingActionButton: FloatingActionButton(
         onPressed: (() {
           _showAddCollaboratorBottomSheet();
         }),
-        child: Image.asset(AppImages.ic_add_user),
+        child: Image.asset(AppImages.icAddUser),
       ),
       body: BlocBuilder(
         bloc: widget.dashboardBloc,

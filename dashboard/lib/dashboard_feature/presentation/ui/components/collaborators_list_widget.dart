@@ -1,5 +1,5 @@
 import 'package:dashboard/dashboard_feature/domain/model/dashboard_collaborator_model.dart';
-import 'package:dashboard/dashboard_feature/presentation/ui/components/collaborator_item_widget.dart';
+import 'package:dashboard/dashboard_feature/presentation/ui/components/collaborator_item_width_new.dart';
 import 'package:flutter/material.dart';
 
 class CollaboratorsList extends StatelessWidget {
@@ -20,9 +20,12 @@ class CollaboratorsList extends StatelessWidget {
       child: ListView.builder(
         itemBuilder: (context, index) {
           return Card(
-            margin: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            margin: const EdgeInsets.only(left: 24, right: 24, bottom: 16),
             elevation: 5,
-            child: CollaboratorItemWidget(
+            child: CollaboratorItemWidthNew(
               collaborator: collaboratorList[index],
               addSaleClicked: addSaleClicked,
               removeClicked: removeClicked,

@@ -51,7 +51,7 @@ class _CollaboratorItemWidgetState extends State<CollaboratorItemWidget> {
                   ),
                 ),
                 subtitle: Text(widget.collaborator.description),
-                leading: Image.asset(AppImages.ic_collaborators),
+                leading: Image.asset(AppImages.icCollaborators),
               );
             },
             body: Container(
