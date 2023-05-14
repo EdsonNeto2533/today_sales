@@ -15,6 +15,7 @@ dependencies:
   flutter_bloc: ^8.1.2
   fpdart: ^0.6.0
   mocktail: ^0.3.0
+  month_picker_dialog: 2.0.0
   commons:
     path: ../commons
   core:

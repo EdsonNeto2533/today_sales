@@ -2,6 +2,7 @@ import 'package:commons/commons.dart';
 import 'package:dashboard/dashboard_feature/presentation/bloc/bloc/collaborator_details_bloc.dart';
 import 'package:dashboard/dashboard_feature/presentation/bloc/event/collaborator_details_bloc_event.dart';
 import 'package:dashboard/dashboard_feature/presentation/bloc/state/collaborator_details_bloc_state.dart';
+import 'package:dashboard/dashboard_feature/presentation/ui/components/collaborator_details_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -30,28 +31,24 @@ class _CollaboratorDetailsPageState extends State<CollaboratorDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const ManageUAppBar(),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          BlocBuilder(
-            bloc: widget.bloc,
-            builder: (_, state) {
-              if (state is LoadingCollaboratorState) {
-                return const CircularProgressIndicator();
-              }
+      body: BlocBuilder(
+        bloc: widget.bloc,
+        builder: (_, state) {
+          if (state is LoadingCollaboratorState) {
+            return const CircularProgressIndicator();
+          }
 
-              if (state is ErrorCollaboratorState) {
-                return ErrorPage(retryClicked: _getCollaboratorInfo);
-              }
+          if (state is ErrorCollaboratorState) {
+            return ErrorPage(retryClicked: _getCollaboratorInfo);
+          }
 
-              if (state is SuccessCollaboratorState) {
-                state.collaboratorModel;
-                return Text(state.collaboratorModel.name);
-              }
-              return Container();
-            },
-          ),
-        ],
+          if (state is SuccessCollaboratorState) {
+            return CollaboratorDetailsWidget(
+              collaboratorModel: state.collaboratorModel,
+            );
+          }
+          return Container();
+        },
       ),
     );
   }

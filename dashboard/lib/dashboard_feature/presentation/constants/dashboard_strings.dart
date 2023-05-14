@@ -5,9 +5,21 @@ class DashboardStrings {
   static String inputFieldsTitle = "Adicionar colaborador";
   static String addButtonText = "Adicionar";
   static String saleDate = "Data venda";
+  static String report = "Relatório";
+  static String totalSalesLabel = "Valor total das vendas";
+  static String numberSalesLabel = "Quantidade de vendas";
+  static String peformanceLabel = "Gráfico de desempenho";
 
   static String collaboratorSaleText(String collaboratorName) {
     return "Adicionar venda a $collaboratorName".toUpperCase();
+  }
+
+  static String totalSalesText(double salesValue) {
+    return "R\$ $salesValue";
+  }
+
+  static String salesQuantity(int salesQnt) {
+    return "Número de vendas $salesQnt";
   }
 
   static String selectedDateText(DateTime? selectedDate) {

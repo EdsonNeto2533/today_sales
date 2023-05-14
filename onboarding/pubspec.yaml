@@ -12,7 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_modular: ^5.0.3
-  flutter_onboarding_slider: ^1.0.8  
+  flutter_onboarding_slider: 1.0.8  
   commons:
     path: ../commons
   core:

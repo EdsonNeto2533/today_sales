@@ -25,7 +25,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: OnboardingAppBar(),
+      appBar: const OnboardingAppBar(),
       body: OnBoardingSlider(
           onFinish: _navigateToDasboard,
           finishButtonText: "Próximo",
