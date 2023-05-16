@@ -14,7 +14,7 @@ class DashboardStrings {
     return "Adicionar venda a $collaboratorName".toUpperCase();
   }
 
-  static String totalSalesText(double salesValue) {
+  static String totalSalesText(String salesValue) {
     return "R\$ $salesValue";
   }
 

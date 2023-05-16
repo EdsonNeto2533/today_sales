@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
 
 import '../../constants/dashboard_strings.dart';
+import 'package:intl/intl.dart';
 
 class CollaboratorDetailsWidget extends StatefulWidget {
   final DashboardCollaboratorModel collaboratorModel;
@@ -20,47 +21,14 @@ class CollaboratorDetailsWidget extends StatefulWidget {
 }
 
 class _CollaboratorDetailsWidgetState extends State<CollaboratorDetailsWidget> {
-  double get salesValue {
-    var value = 0.0;
-    for (var element in widget.collaboratorModel.sales) {
-      if (selectedDate != null) {
-        value += getFiltredValue(element);
-      } else {
-        value += element.value;
-      }
-    }
-    return value;
-  }
+  double get salesValue =>
+      widget.collaboratorModel.getTotalSalesValue(selectedDate);
 
-  int get saleQuantity {
-    var value = 0;
-    for (var element in widget.collaboratorModel.sales) {
-      if (selectedDate != null) {
-        value += getFiltredQuantityValue(element);
-      } else {
-        value++;
-      }
-    }
-    return value;
-  }
+  Map<String, List<Sale>> get salesByMonth =>
+      widget.collaboratorModel.getSalesByMonth();
 
-  double getFiltredValue(Sale sale) {
-    if (sale.saleDate.year == selectedDate!.year &&
-        sale.saleDate.month == selectedDate!.month) {
-      return sale.value;
-    } else {
-      return 0.0;
-    }
-  }
-
-  int getFiltredQuantityValue(Sale sale) {
-    if (sale.saleDate.year == selectedDate!.year &&
-        sale.saleDate.month == selectedDate!.month) {
-      return 1;
-    } else {
-      return 0;
-    }
-  }
+  int get saleQuantity =>
+      widget.collaboratorModel.getNumberOfSales(selectedDate);
 
   DateTime? selectedDate;
 
@@ -171,7 +139,8 @@ class _CollaboratorDetailsWidgetState extends State<CollaboratorDetailsWidget> {
             ),
             ValueLabelDivider(
               label: DashboardStrings.totalSalesLabel,
-              value: DashboardStrings.totalSalesText(salesValue),
+              value: DashboardStrings.totalSalesText(
+                  NumberFormat.simpleCurrency().format(salesValue)),
             ),
             ValueLabelDivider(
               label: DashboardStrings.numberSalesLabel,

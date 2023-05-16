@@ -46,4 +46,10 @@ class DashboardRepository implements IDashboardRepository {
   Future<List<Sale>> getCollaboratorSales(int id) {
     return _saleDAO.getSaleByCollaboratorId(id);
   }
+
+  @override
+  Future<Unit> removeSale(Sale sale) async {
+    await _saleDAO.deleteSale(sale);
+    return unit;
+  }
 }

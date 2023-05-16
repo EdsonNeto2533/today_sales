@@ -67,9 +67,10 @@ class _SalesFieldsWidgetState extends State<SalesFieldsWidget> {
                 widget.collaborator.name,
               ),
               style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).primaryColor),
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).primaryColor,
+              ),
             ),
           ),
           Container(
@@ -79,7 +80,7 @@ class _SalesFieldsWidgetState extends State<SalesFieldsWidget> {
             ),
             child: MainTextInputWidget(
               controller: _saleValueController,
-              inputType: TextInputType.number,
+              inputType: const TextInputType.numberWithOptions(decimal: true),
               hint: DashboardStrings.salePlaceholder,
               onSubmitted: (value) {
                 _verifyFields();

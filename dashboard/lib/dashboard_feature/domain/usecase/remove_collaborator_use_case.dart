@@ -9,7 +9,12 @@ class RemoveCollaboratorUseCase implements IRemoveCollaboratorUseCase {
       : _repository = repository;
 
   @override
-  Future<void> removeColaborator(DashboardCollaboratorModel collaborator) {
+  Future<void> removeColaborator(
+    DashboardCollaboratorModel collaborator,
+  ) async {
+    for (var element in collaborator.sales) {
+      await _repository.removeSale(element);
+    }
     return _repository.removeCollaborator(collaborator.toEntity());
   }
 }
