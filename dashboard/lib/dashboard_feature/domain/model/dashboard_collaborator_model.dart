@@ -1,6 +1,7 @@
 import 'package:commons/commons.dart';
 import 'package:core/database/entitys/collaborator.dart';
 import 'package:core/database/entitys/sale.dart';
+import 'package:dashboard/dashboard_feature/domain/model/sale_with_month_model.dart';
 import 'package:intl/intl.dart';
 
 class DashboardCollaboratorModel {
@@ -43,19 +44,30 @@ class DashboardCollaboratorModel {
     return value;
   }
 
-  Map<String, List<Sale>> getSalesByMonth() {
-    Map<String, List<Sale>> salesByMonth = {};
+  List<SaleWithMonthModel> getSalesByMonth() {
     sales.sort((a, b) => b.saleDate.compareTo(a.saleDate));
+
+    List<SaleWithMonthModel> salesByMonth = [];
+    var distinctMonths = <String>{};
 
     for (var sale in sales) {
       String month = DateFormat('MMMM yyyy').format(sale.saleDate);
 
-      if (!salesByMonth.containsKey(month)) {
-        salesByMonth[month] = [];
+      if (distinctMonths.contains(month)) {
+        var existingSalesForMonth =
+            salesByMonth.firstWhere((element) => element.month == month);
+        existingSalesForMonth.sales.add(sale);
+      } else {
+        var salesForMonth = SaleWithMonthModel(month: month, sales: [sale]);
+        salesByMonth.add(salesForMonth);
+        distinctMonths.add(month);
       }
 
-      salesByMonth[month]!.add(sale);
+      if (salesByMonth.length >= 5) {
+        break;
+      }
     }
+
     return salesByMonth;
   }
 

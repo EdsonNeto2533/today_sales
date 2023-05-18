@@ -1,12 +1,13 @@
 import 'package:commons/commons.dart';
-import 'package:core/database/entitys/sale.dart';
 import 'package:dashboard/dashboard_feature/domain/model/dashboard_collaborator_model.dart';
+import 'package:dashboard/dashboard_feature/domain/model/sale_with_month_model.dart';
+import 'package:dashboard/dashboard_feature/presentation/ui/components/sales_bar_chart.dart';
 import 'package:dashboard/dashboard_feature/presentation/ui/components/value_label_divider.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
 
 import '../../constants/dashboard_strings.dart';
-import 'package:intl/intl.dart';
 
 class CollaboratorDetailsWidget extends StatefulWidget {
   final DashboardCollaboratorModel collaboratorModel;
@@ -24,7 +25,7 @@ class _CollaboratorDetailsWidgetState extends State<CollaboratorDetailsWidget> {
   double get salesValue =>
       widget.collaboratorModel.getTotalSalesValue(selectedDate);
 
-  Map<String, List<Sale>> get salesByMonth =>
+  List<SaleWithMonthModel> get salesByMonth =>
       widget.collaboratorModel.getSalesByMonth();
 
   int get saleQuantity =>
@@ -139,8 +140,7 @@ class _CollaboratorDetailsWidgetState extends State<CollaboratorDetailsWidget> {
             ),
             ValueLabelDivider(
               label: DashboardStrings.totalSalesLabel,
-              value: DashboardStrings.totalSalesText(
-                  NumberFormat.simpleCurrency().format(salesValue)),
+              value: NumberFormat.simpleCurrency().format(salesValue),
             ),
             ValueLabelDivider(
               label: DashboardStrings.numberSalesLabel,
@@ -172,6 +172,9 @@ class _CollaboratorDetailsWidgetState extends State<CollaboratorDetailsWidget> {
                 ),
               ),
             ),
+            SalesBarChartWidget(
+              salesList: salesByMonth,
+            )
           ],
         ),
       ),
