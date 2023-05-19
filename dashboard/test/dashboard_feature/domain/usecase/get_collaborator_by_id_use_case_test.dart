@@ -1,66 +1,55 @@
-// import 'package:core/database/entitys/collaborator.dart';
-// import 'package:core/database/entitys/sale.dart';
-// import 'package:dashboard/dashboard_feature/domain/model/dashboard_collaborator_model.dart';
-// import 'package:dashboard/dashboard_feature/domain/repository/idashboard_repository.dart';
-// import 'package:dashboard/dashboard_feature/domain/usecase/get_collaborator_by_id_use_case.dart';
-// import 'package:flutter_test/flutter_test.dart';
-// import 'package:mocktail/mocktail.dart';
+import 'package:core/database/entitys/collaborator.dart';
+import 'package:core/database/entitys/sale.dart';
+import 'package:dashboard/dashboard_feature/domain/model/dashboard_collaborator_model.dart';
+import 'package:dashboard/dashboard_feature/domain/repository/idashboard_repository.dart';
+import 'package:dashboard/dashboard_feature/domain/usecase/get_collaborator_by_id_use_case.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
 
-// class RepositoryMock extends Mock implements IDashboardRepository {}
+class RepositoryMock extends Mock implements IDashboardRepository {}
 
-// class CollaboratorMock extends Mock implements Collaborator {}
+void main() {
+  late IDashboardRepository repository;
+  late IGetCollaboratorByIdUseCase useCase;
 
-// class DashboardCollaboratorMock extends Mock
-//     implements DashboardCollaboratorModel {}
+  setUp(() {
+    repository = RepositoryMock();
+    useCase = GetCollaboratorByIdUseCase(repository);
+  });
+  test(
+      'should return a dashboard collaborator when get collaborator by id is called',
+      () async {
+    Collaborator collaborator = Collaborator(
+      id: 1,
+      name: "joao",
+      description: "vendedor",
+    );
+    List<Sale> sales = [
+      Sale(
+        value: 100,
+        collaboratorId: 1,
+        saleDate: DateTime.now(),
+      )
+    ];
 
-// void main() {
-//   late IDashboardRepository repository;
-//   late IGetCollaboratorByIdUseCase useCase;
+    when(
+      () => repository.getCollaboratorById(any()),
+    ).thenAnswer(
+      (invocation) async => collaborator,
+    );
 
-//   setUp(() {
-//     repository = RepositoryMock();
-//     useCase = GetCollaboratorByIdUseCase(repository);
-//   });
-//   test('get collaborator by id use case ...', () async {
-//     Collaborator collaborator = Collaborator(
-//       name: "name",
-//       description: "",
-//       id: 1,
-//     );
+    when(
+      () => repository.getCollaboratorSales(any()),
+    ).thenAnswer(
+      (invocation) async => sales,
+    );
 
-//     var teste = [
-//       Sale(
-//         value: 10,
-//         collaboratorId: 1,
-//         saleDate: DateTime.now(),
-//       )
-//     ];
+    var response = await useCase.execute(1);
 
-//     DashboardCollaboratorModel model = DashboardCollaboratorModel(
-//       name: "name",
-//       description: "",
-//       id: 1,
-//       sales: teste,
-//     );
-
-//     when(
-//       () => repository.getCollaboratorById(any()),
-//     ).thenAnswer(
-//       (invocation) async => collaborator,
-//     );
-
-//     when(
-//       () => repository.getCollaboratorSales(any()),
-//     ).thenAnswer(
-//       (invocation) async => teste,
-//     );
-
-//     // when(
-//     //   () => DashboardCollaboratorModel.fromEntity(collaborator),
-//     // ).thenReturn(model);
-
-//     var response = await useCase.execute(1);
-
-//     expect(response, model);
-//   });
-// }
+    expect(response, isA<DashboardCollaboratorModel>());
+    expect(response.sales.length, sales.length);
+    expect(response.name, collaborator.name);
+    expect(response.description, collaborator.description);
+    expect(response.id, collaborator.id);
+  });
+}
