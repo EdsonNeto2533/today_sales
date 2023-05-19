@@ -33,13 +33,15 @@ class DashboardRepository implements IDashboardRepository {
   }
 
   @override
-  Future<void> removeCollaborator(Collaborator collaborator) {
-    return _collaboratorDAO.removeCollaborator(collaborator);
+  Future<Unit> removeCollaborator(Collaborator collaborator) async {
+    await _collaboratorDAO.removeCollaborator(collaborator);
+    return unit;
   }
 
   @override
-  Future<void> addSale(Sale sale) {
-    return _saleDAO.insertSale(sale);
+  Future<Unit> addSale(Sale sale) async {
+    await _saleDAO.insertSale(sale);
+    return unit;
   }
 
   @override

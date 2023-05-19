@@ -11,14 +11,11 @@ class GetCollaboratorsUseCase implements IGetCollaboratorsUseCase {
 
   @override
   Future<List<DashboardCollaboratorModel>> getCollaborators() async {
-    List<DashboardCollaboratorModel> collaboratorsList = [];
-
     final collaborators = await _repository.getCollaborators();
 
-    for (var collaborator in collaborators) {
-      collaboratorsList
-          .add(DashboardCollaboratorModel.fromEntity(collaborator));
-    }
+    final collaboratorsList = collaborators
+        .map((e) => DashboardCollaboratorModel.fromEntity(e))
+        .toList();
 
     for (var element in collaboratorsList) {
       final sales = await _repository.getCollaboratorSales(element.id!);

@@ -9,11 +9,11 @@ abstract class IDashboardRepository {
 
   Future<Unit> insertCollaborator(Collaborator collaborator);
 
-  Future<void> removeCollaborator(Collaborator collaborator);
+  Future<Unit> removeCollaborator(Collaborator collaborator);
 
   Future<Unit> removeSale(Sale sale);
 
-  Future<void> addSale(Sale sale);
+  Future<Unit> addSale(Sale sale);
 
   Future<List<Sale>> getCollaboratorSales(int id);
 }

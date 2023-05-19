@@ -1,3 +1,5 @@
+import 'package:fpdart/fpdart.dart';
+
 import '../../presentation/usecase/iremove_colaborator_use_case.dart';
 import '../model/dashboard_collaborator_model.dart';
 import '../repository/idashboard_repository.dart';
@@ -9,7 +11,7 @@ class RemoveCollaboratorUseCase implements IRemoveCollaboratorUseCase {
       : _repository = repository;
 
   @override
-  Future<void> removeColaborator(
+  Future<Unit> removeColaborator(
     DashboardCollaboratorModel collaborator,
   ) async {
     for (var element in collaborator.sales) {
