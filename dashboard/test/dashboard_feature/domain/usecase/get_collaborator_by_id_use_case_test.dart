@@ -6,6 +6,9 @@ import 'package:dashboard/dashboard_feature/domain/usecase/get_collaborator_by_i
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
+import '../../../factory/collaborator_factory.dart';
+import '../../../factory/sale_factory.dart';
+
 class RepositoryMock extends Mock implements IDashboardRepository {}
 
 void main() {
@@ -19,18 +22,8 @@ void main() {
   test(
       'should return a dashboard collaborator when get collaborator by id is called',
       () async {
-    Collaborator collaborator = Collaborator(
-      id: 1,
-      name: "joao",
-      description: "vendedor",
-    );
-    List<Sale> sales = [
-      Sale(
-        value: 100,
-        collaboratorId: 1,
-        saleDate: DateTime.now(),
-      )
-    ];
+    Collaborator collaborator = CollaboratorFactory.generateCollaborator();
+    List<Sale> sales = SaleFactory.generateSalesList();
 
     when(
       () => repository.getCollaboratorById(any()),

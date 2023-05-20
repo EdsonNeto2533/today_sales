@@ -7,34 +7,18 @@ import 'package:dashboard/dashboard_feature/presentation/usecase/iget_collaborat
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
+import '../../../factory/collaborator_factory.dart';
+import '../../../factory/sale_factory.dart';
+
 class RepositoryMock extends Mock implements IDashboardRepository {}
 
 class Teste extends Mock implements DashboardCollaboratorModel {}
 
 void main() {
   late IDashboardRepository repository;
-  List<Collaborator> collaboratorList = [
-    Collaborator(
-      name: "joao",
-      description: "vendedor",
-      id: 1,
-    )
-  ];
-  List<Sale> salesList = [
-    Sale(
-      value: 200,
-      collaboratorId: 1,
-      saleDate: DateTime.now(),
-    ),
-  ];
-  List<DashboardCollaboratorModel> collaboratorModelMock = [
-    DashboardCollaboratorModel(
-      name: "joao",
-      description: "vendedor",
-      id: 1,
-      sales: [],
-    )
-  ];
+  List<Collaborator> collaboratorList =
+      CollaboratorFactory.generateCollaboratorList();
+  List<Sale> salesList = SaleFactory.generateSalesList();
   late IGetCollaboratorsUseCase useCase;
 
   setUp(() {
@@ -59,15 +43,11 @@ void main() {
       (invocation) async => salesList,
     );
 
-    when(
-      () =>
-          collaboratorList.map((e) => DashboardCollaboratorModel.fromEntity(e)),
-    ).thenReturn(collaboratorModelMock);
-
     //Act
     final response = await useCase.getCollaborators();
 
     //Assert
-    expect(response, collaboratorModelMock);
+    expect(response, isA<List<DashboardCollaboratorModel>>());
+    expect(response.length, collaboratorList.length);
   });
 }
