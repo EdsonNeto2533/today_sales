@@ -19,13 +19,11 @@ class CollaboratorItemWidthNew extends StatelessWidget {
     return ListTile(
       title: Text(
         collaborator.name.toUpperCase(),
-        style: const TextStyle(
-          fontWeight: FontWeight.bold,
-        ),
+        style: Theme.of(context).textTheme.bodyMedium,
       ),
       subtitle: Text(
         collaborator.description,
-        style: const TextStyle(color: Colors.black),
+        style: Theme.of(context).textTheme.bodySmall,
       ),
       leading: Image.asset(
         AppImages.icCollaborators,

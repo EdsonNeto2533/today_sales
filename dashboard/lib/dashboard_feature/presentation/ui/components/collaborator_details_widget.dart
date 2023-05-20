@@ -56,11 +56,7 @@ class _CollaboratorDetailsWidgetState extends State<CollaboratorDetailsWidget> {
               ),
               child: Text(
                 widget.collaboratorModel.name,
-                style: TextStyle(
-                  fontSize: 26,
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).primaryColor,
-                ),
+                style: Theme.of(context).textTheme.titleLarge,
               ),
             ),
             Container(
@@ -174,7 +170,7 @@ class _CollaboratorDetailsWidgetState extends State<CollaboratorDetailsWidget> {
             ),
             SalesBarChartWidget(
               salesList: salesByMonth,
-            )
+            ),
           ],
         ),
       ),

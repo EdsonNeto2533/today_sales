@@ -54,11 +54,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     ),
                     Text(
                       "Colaboradores".toUpperCase(),
-                      style: TextStyle(
-                        color: Theme.of(context).primaryColor,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
                     Container(
                       margin: const EdgeInsets.only(top: 32),
